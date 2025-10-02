@@ -1003,7 +1003,7 @@ section[id]{ scroll-margin-top: 72px; }
   .hero__title { font-size: 32px; }
   
   /* Benefits mobile */
-  .benefits { padding: 60px var(--padding-mobile); }
+  .benefits { padding: 0 var(--padding-mobile); }
   .benefits__container { 
     grid-template-columns: 1fr; 
     gap: var(--spacing-md);
