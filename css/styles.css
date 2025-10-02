@@ -1,0 +1,920 @@
+:root {
+  --primary: #243B2D;    /* основной зелёный */
+  --secondary: #F53B10;  /* акцентный красно-оранжевый */
+  --dark: #111111;
+  --darker-grey: #424242;
+  --grey: #F0F0F0;
+  --light-grey: #F5F5F5;
+  --white: #FFFFFF;
+}
+
+body {
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+  font-size: 16px;       /* Body */
+  line-height: 1.5;
+  color: var(--dark);
+  background: var(--white);
+}
+
+/* Заголовки */
+h1 {
+  font-family: "Ysabeau Infant", sans-serif;
+  font-weight: 600;
+  font-size: 64
+  px;
+  line-height: 1.2;
+  color: var(--primary);
+}
+
+h2 {
+  font-family: "Ysabeau Infant", sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.3;
+  color: var(--primary);
+}
+
+h3 {
+  font-family: "Ysabeau Infant", sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.3;
+  color: var(--primary);
+}
+
+/* Текстовые стили */
+.body { font-size: 16px; font-weight: 400; }
+.body-big { font-size: 20px; font-weight: 400; }
+.body-small { font-size: 12px; font-weight: 400; }
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+.section {
+  padding: 120px 80px;
+}
+
+/* базовые стили */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+/* иконка */
+.btn .btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  transition: all 0.2s ease;
+}
+.btn .btn-icon svg {
+  stroke: currentColor;
+  transition: stroke 0.2s ease;
+}
+
+/* PRIMARY */
+.btn-primary {
+  padding: 12px 20px;
+  border-radius: 16px;
+  background: var(--secondary);
+  color: var(--white);
+  font-size: 20px; /* Body big */
+}
+.btn-primary .btn-icon {
+  border-radius: 8px;
+  background: transparent;
+  border: 0.5px solid rgba(255,255,255,0.8);
+}
+.btn-primary:hover {
+  background: var(--secondary); /* фон не меняется */
+}
+.btn-primary:hover .btn-icon {
+  background: #fff;
+  border: 0.5px solid #fff;
+  color: var(--secondary);
+}
+
+/* SECONDARY */
+.btn-secondary {
+  padding: 2px 16px 2px 2px;
+  border-radius: 24px;
+  background: var(--light-grey);
+  color: var(--dark);
+  font-size: 16px;
+}
+.btn-secondary .btn-icon {
+  border-radius: 24px;
+  background: var(--secondary);
+  color: var(--white);
+}
+.btn-secondary:hover {
+  background: var(--secondary);
+  color: var(--white);
+}
+.btn-secondary:hover .btn-icon {
+  background: var(--light-grey);
+  color: var(--secondary);
+}
+
+/* Кнопка меню: normal */
+.menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 10px 20px;              /* из макета */
+  border-radius: 8px;               /* corner radius 8 */
+  background: var(--light-grey);    /* Light grey */
+  color: var(--dark);
+  font: 400 16px/1.2 "Mulish", sans-serif; /* Body */
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+  white-space: nowrap;
+  border: none;
+}
+
+/* Hover */
+.menu-btn:hover {
+  background: var(--secondary);  /* Secondary */
+  color: var(--white);           /* белый текст */
+  box-shadow: 0 6px 16px rgba(245, 59, 16, 0.18);
+}
+
+/* Активная/текущая страница */
+.menu-btn--current {
+  background: var(--secondary);
+  color: var(--white);
+}
+
+/* Доступность */
+.menu-btn:focus-visible {
+  outline: 2px solid rgba(36, 59, 45, .25);   /* Primary полупрозрачный */
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(36, 59, 45, .08);
+}
+
+.nav__box {
+  display: inline-flex;   /* вместо flex */
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 0.5px solid var(--darker-grey);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.4); /* белый 40% opacity */
+  backdrop-filter: blur(12px);
+}
+
+
+/* разделитель */
+.nav__divider {
+  display: block;
+  width: 1px;
+  height: 32px;
+  background: var(--darker-grey);
+  opacity: 0.5;
+  margin: 0 4px;
+}
+/* Header — обычный (логотип уезжает при скролле) */
+.header{
+  position: relative;           /* не sticky */
+  background: var(--white);
+}
+.header__container{
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header__logo img{ height: 64px; display:block; }
+
+/* Навигация справа — всегда видна (фиксируем) */
+.header__nav{
+  position: fixed;              /* ключ! вместо sticky */
+  top: 32px;
+  right: 10%;                  /* под твой паддинг */
+  z-index: 1100;
+}
+
+/* Стеклянный контейнер меню */
+.nav__box{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 12px;
+  border: .5px solid var(--darker-grey);
+  background: rgba(255,255,255,.60);
+  backdrop-filter: saturate(180%) blur(8px);
+}
+
+/* Разделитель внутри меню (если есть) */
+.nav__divider{
+  width: 1px; height: 32px;
+  background: var(--darker-grey);
+  opacity: .35; border-radius: 1px;
+}
+
+/* Чтобы контент не уезжал под фикс-меню */
+main{ padding-top: 0px; }      /* под высоту меню (подгони при желании) */
+
+/* Якоря не прячутся под меню при скролле к секции */
+section[id]{ scroll-margin-top: 72px; }
+
+/* Адаптив: при узком экране притягиваем меню к краям */
+@media (max-width: 900px){
+  .header__nav{ right: 16px; }
+  main{ padding-top: 64px; }
+  section[id]{ scroll-margin-top: 64px; }
+}
+
+
+/* === HERO SECTION === */
+.hero {
+  width: 100%;
+  background: transparent;
+}
+
+.hero__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 120px 120px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px; /* обновлённый gap */
+}
+
+/* ЛЕВАЯ КОЛОНКА */
+.hero__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 0 16px;
+}
+
+.hero__eyebrow {
+  margin: 0;
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--primary);
+}
+
+.hero__title {
+  margin: 0;
+  font-family: "Ysabeau Infant", sans-serif;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--primary);
+}
+
+.hero__bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font: 400 16px/1.5 "Mulish", sans-serif;
+  color: var(--darker-grey);
+}
+
+/* ПРАВАЯ КОЛОНКА */
+.hero__image {
+  flex: 1; /* картинка занимает всю колонку */
+  display: flex;
+}
+.hero__image--rounded {
+  border-radius: 40px;
+  overflow: hidden;
+  background: var(--grey);
+  width: 100%;
+}
+.hero__image--rounded img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* АДАПТИВ */
+@media (max-width: 1024px) {
+  .hero__title { font-size: 48px; }
+}
+@media (max-width: 768px) {
+  .hero__container { flex-direction: column; padding: 80px 24px; }
+  .hero__content { padding: 0; }
+  .hero__title { font-size: 38px; }
+}
+
+/* === BENEFITS SECTION === */
+.benefits {
+  padding: 80px 120px;
+  background: none;
+}
+.benefits__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px;
+  padding: 40px 0;
+}
+
+/* Карточка */
+.benefits-card {
+  border-radius: 24px;
+  padding: 24px 40px;
+  border: 2px solid transparent;
+  background-image: linear-gradient(var(--white), var(--white)),
+    linear-gradient(to right, var(--primary), var(--secondary), var(--primary));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  transition: background-color 0.3s ease;
+}
+.benefits-card:hover {
+  background-image: linear-gradient(var(--light-grey), var(--light-grey)),
+    linear-gradient(to right, var(--primary), var(--secondary), var(--primary));
+}
+
+/* Заголовки */
+.benefits-card__title {
+  margin: 0 0 16px;
+  font-family: "Ysabeau Infant", sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.3;
+  color: var(--primary);
+}
+.benefits-card--partners .benefits-card__title {
+  color: var(--secondary);
+}
+
+/* Списки */
+.benefits-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font: 400 16px/1.5 "Mulish", sans-serif;
+  color: var(--dark);
+}
+.benefits-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Иконки */
+.icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.icon--green {
+  filter: invert(25%) sepia(90%) saturate(400%) hue-rotate(90deg);
+  /* перекрашивает SVG в зелёный */
+}
+.icon--orange {
+  filter: invert(42%) sepia(99%) saturate(2800%) hue-rotate(-5deg) brightness(95%);
+  /* перекрашивает SVG в оранжевый */
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+  .benefits__container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+/* === ABOUT SECTION === */
+/* Внешний контейнер: зелёный фон, большие отступы */
+.about__outer{
+  background: var(--primary);                /* color green primary */
+  padding: 120px 120px;                        /* outer: 120 80 */
+}
+.about__inner{
+  max-width: 1200px;                          /* внутр. ширина */
+  margin: 0 auto;
+  background: var(--white);                   /* белая капсула */
+  border-radius: 24px;
+  padding: 24px 0;                         /* inner: 24 40 */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;                                  /* gap между заголовком и карточками */
+}
+
+/* Заголовок */
+.about__title{
+  margin: 0;
+  font-family: "Ysabeau Infant", sans-serif;
+  font-weight: 600;                           /* h2 по гайду */
+  font-size: 32px;
+  line-height: 1.25;
+  color: var(--primary);
+  padding: 0 40px;
+}
+
+/* Карточки-статы */
+.about__stats{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);      /* 4 колонки */
+  gap: 32px;                                  /* gap между cards 32 */
+  padding: 0 32px;
+}
+
+.about-card{
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 16px;                               /* padding 16 */
+  border-radius: 12px;                         /* визуально приятнее на ховере */
+  background: transparent;
+}
+.about-card__value{
+  margin: 0;
+  font-family: "Ysabeau Infant", sans-serif;   /* h3 по гайду */
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.3;
+  color: var(--primary);
+}
+.about-card__note{
+  margin: 0;
+  font: 400 12px/1.4 "Mulish", sans-serif;     /* Body small */
+  color: var(--darker-grey);
+}
+/* Нижняя полоса 4px */
+.about-card__bar{
+  display: block;
+  height: 4px;                                 /* border width 4 */
+  width: 100%;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+/* Адаптив */
+@media (max-width: 1024px){
+  .about__stats{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px){
+  .about__outer{ padding: 80px 24px; }
+  .about__inner{ padding: 20px 24px; }
+  .about__stats{ grid-template-columns: 1fr; }
+}
+
+/* === TESTIMONIALS SECTION === */
+.testimonials__outer{
+  padding: 120px 120px;          /* outer: 120 80 */
+  background: var(--grey);      /* серый фон секции */
+}
+
+.testimonials__inner{
+  max-width: 1200px;            /* фиксируем линию с другими секциями */
+  margin: 0 auto;
+  padding: 0;                   /* по макету нулевые паддинги */
+  display: grid;
+  gap: 32px;                    /* расстояние заголовок ↔ грид */
+}
+
+.testimonials__title{
+  margin: 0;
+  font-family: "Ysabeau Infant", sans-serif;
+  font-weight: 600;
+  font-size: 32px;              /* h2 */
+  line-height: 1.25;
+  color: var(--primary);
+}
+
+/* сетка карточек */
+.testimonials__grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;                    /* между карточками */
+}
+
+/* карточка */
+.testimonial-card{
+  background: var(--white);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;                    /* внутри карточки */
+  box-shadow: 0 2px 6px rgba(0,0,0,.05);
+}
+
+.testimonial-card__image{
+  flex-shrink: 0;
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.testimonial-card__image img{
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+.testimonial-card__title{
+  margin: 0 0 8px;
+  font-family: "Ysabeau Infant", sans-serif;
+  font-size: 24px;              /* h3 */
+  font-weight: 600;
+  color: var(--primary);
+}
+.testimonial-card__text{
+  margin: 0;
+  font: 400 16px/1.5 "Mulish", sans-serif; /* body */
+  color: var(--dark);
+}
+
+/* адаптив */
+@media (max-width: 1024px){
+  .testimonials__grid{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px){
+  .testimonials__outer{ padding: 80px 24px; }
+  .testimonials__grid{ grid-template-columns: 1fr; }
+}
+
+/* OUTER контейнер: padding 80 120, прозрачный фон */
+/* контейнеры */
+.faq__outer{ padding:80px 120px; background:transparent; }
+.faq__inner{ max-width:1200px; margin:0 auto; padding:0; display:grid; gap:24px; }
+
+/* тянем каждый item на всю ширину сетки секции */
+.faq__inner { 
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;          /* вместо grid, чтобы items растягивались на 100% */
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Контейнер секции */
+.faq__inner{
+  max-width:1200px; margin:0 auto; padding:0;
+  display:flex; flex-direction:column; gap:24px;
+}
+
+/* Элемент */
+.accordion__item{
+  width:100%; position:relative; border-radius:8px;
+  overflow:hidden; /* чтобы градиент/углы не вылазили */
+}
+
+/* Шапка (закрыто) */
+.accordion__header{
+  position:relative; width:100%; display:block;
+  padding:16px 60px 16px 16px;               /* место под кнопку справа */
+  border:.5px solid var(--dark);             /* бордер у закрытого */
+  border-radius:8px;
+  background:transparent;
+  background-clip: padding-box;              /* не перекрывать бордер */
+  box-sizing:border-box;                     /* чтобы бордер не "съедался" */
+  cursor:pointer; text-align:left; z-index:1;
+}
+.accordion__item:not(.open) .accordion__header:hover{
+  background:var(--light-grey);
+}
+
+/* Вопрос */
+.accordion__q{
+  margin:0; font:600 20px/1.3 "Mulish",sans-serif; color:var(--dark);
+}
+
+/* Кнопка-иконка: ВСЕГДА в правом верхнем углу */
+.accordion__icon{
+  position:absolute; top:12px; right:12px;
+  width:36px; height:36px; display:inline-flex;
+  align-items:center; justify-content:center;
+  border-radius:8px; background:#fff; border:.5px solid #fff;
+  color:var(--dark); z-index:2;
+}
+.accordion__icon .icon--up{ display:none; }
+.accordion__icon svg{ pointer-events:none; } /* чтобы клик ловил button */
+
+/* Контент */
+.accordion__content{ position:relative; z-index:1; }
+.accordion__panel{
+  display:none; padding:0 16px 16px 16px; background:transparent; border:none;
+  color:var(--dark); font:400 16px/1.5 "Mulish",sans-serif;
+}
+
+/* ОТКРЫТО */
+.accordion__item.open{
+  border:.5px solid var(--dark); border-radius:8px;
+}
+/* градиент на ВСЮ высоту, но НЕ закрывает бордер (inset:1px) */
+.accordion__item.open::before{
+  content:""; position:absolute; inset:1px; border-radius:7px;
+  pointer-events:none; z-index:0;
+  background:linear-gradient(90deg, transparent 58%, rgba(255, 255, 255, 0.12) 76%, var(--grey) 100%);
+}
+/* у шапки убираем локальный бордер и уменьшаем зазор */
+.accordion__item.open .accordion__header{
+  border:none; border-radius:8px 8px 0 0; background:transparent; padding-bottom:8px;
+}
+.accordion__item.open .accordion__panel{ display:block; padding-top:8px; }
+
+/* переключение иконок */
+.accordion__item.open .accordion__icon .icon--down{ display:none; }
+.accordion__item.open .accordion__icon .icon--up{ display:block; }
+
+/* Фокус */
+.accordion__header:focus-visible{
+  outline:2px solid rgba(36,59,45,.35); outline-offset:2px;
+}
+
+@media (max-width:640px){
+  .accordion__q{ font-size:18px; }
+}
+
+/* OUTER / INNER по макету */
+.contacts__outer{ padding:80px 120px; background:transparent; }
+.contacts__inner{
+  max-width:1200px; margin:0 auto; padding:0;
+  display:grid; grid-template-columns: 1fr 1fr; gap:0; /* без промежутка */
+}
+
+/* LEFT */
+.contacts__title{
+  margin:0 0 16px;
+  font-family:"Ysabeau Infant",sans-serif; font-weight:600; font-size:32px; color:var(--primary);
+}
+.contacts__left{ display:flex; flex-direction:column; gap:12px; }
+
+.contacts__phone{
+  font:600 20px/1.3 "Mulish",sans-serif;
+  color:var(--dark); text-decoration:none;
+}
+.contacts__phone:hover{ text-decoration:underline; }
+
+.contacts__email{
+  padding:0; border:0; background:none; cursor:pointer;
+  font:400 16px/1.4 "Mulish",sans-serif; color:var(--dark);
+  text-align:left;
+}
+.contacts__email:hover{ text-decoration:underline; }
+
+.contacts__copied{
+  position:relative; top:2px;
+  font:400 12px/1 "Mulish",sans-serif; color:var(--primary);
+  opacity:0; transition:opacity .2s ease; pointer-events:none;
+}
+.contacts__copied.show{ opacity:1; }
+
+.contacts__addr{
+  margin-top:4px; font:400 16px/1.5 "Mulish",sans-serif; color:var(--dark);
+  font-style:normal;
+}
+
+/* RIGHT (карта) */
+.contacts__right{ min-height:320px; }
+.contacts__map{
+  width:100%; height:100%; min-height:320px; border:0; border-radius:0;
+}
+
+/* Адаптив */
+@media (max-width: 900px){
+  .contacts__outer{ padding:60px 24px; }
+  .contacts__inner{ grid-template-columns: 1fr; }
+  .contacts__right{ order:2; margin-top:16px; }
+}
+
+.footer__outer {
+  background: var(--dark);
+  padding: 40px 120px;
+  color: var(--white);
+}
+
+.footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer__nav {
+  display: flex;
+  gap: 24px;
+}
+
+.footer__nav a {
+  color: var(--white);
+  text-decoration: none;
+  font: var(--body);
+  transition: opacity 0.2s;
+}
+
+.footer__nav a:hover {
+  opacity: 0.7;
+}
+
+.footer__copy {
+  font: var(--body);
+  color: var(--white);
+  opacity: 0.6;
+  text-align: center;
+}
+
+/* ===== Section frame ===== */
+.lead__outer{
+  background: var(--primary);
+  padding: 120px 120px;
+}
+.lead__inner{
+  max-width: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: var(--white);
+  border-radius: 24px;
+  padding: 24px;
+  gap: 16px;
+}
+
+.lead__subtitle{
+  font: 400 12px/1.25 "Mulish", sans-serif;
+  color: var(--primary);
+  margin: 24px 0 12px;
+}
+
+/* ===== Inputs states ===== */
+.form-field {
+  width: 100%;          /* растянуть обертку */
+  margin-bottom: 8px;
+}
+.form-input {
+  width: 100%;          /* растянуть сам инпут */
+  height: 40px;
+  border-radius: 8px;
+  padding: 0 12px;
+  border: .5px solid rgba(17,17,17,.55);
+  background: var(--white);
+  color: var(--dark);
+  font: 400 16px/1 "Mulish", sans-serif;
+  outline: none;
+  box-sizing: border-box; /* учитываем padding и border в ширине */
+}
+
+.form-input::placeholder{ color: rgba(17,17,17,.35); }
+
+/* hover */
+.form-input:hover{
+  border-color: rgba(17,17,17,.7);
+}
+
+/* focus */
+.form-input:focus{
+  border-color: var(--primary);
+}
+
+/* valid */
+.form-field.is-valid .form-input{
+  border-color: var(--primary);
+}
+
+/* error */
+.form-field.is-error .form-input{
+  border-color: var(--primary);
+}
+
+/* disabled */
+.form-input:disabled{
+  background: var(--light-grey);
+  color: rgba(17,17,17,.5);
+}
+
+/* hints & errors */
+.form-hint{
+  margin: 6px 0 0;
+  font: 400 12px/1.25 "Mulish", sans-serif;
+  color: rgba(17,17,17,.55);
+  display: none;
+}
+.form-error{
+  margin: 6px 0 0;
+  font: 400 12px/1.25 "Mulish", sans-serif;
+  color: rgb(218, 0, 0);
+  display: none;
+}
+.form-field.is-focus .form-hint{ display:block; }
+.form-field.is-error .form-error{ display:block; }
+
+/* ===== Checkboxes ===== */
+.checks{ display: grid; gap: 16px; margin-bottom: 16px; border: 0; padding: 0; }
+.check{
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: start;
+  gap: 16px;
+  font: 400 16px/1.35 "Mulish", sans-serif;
+  color: var(--dark);
+}
+.check input{
+  appearance: none;
+  width: 20px; height: 20px;
+  border: 1px solid rgba(17,17,17,1);
+  border-radius: 4px;
+  background: var(--white);
+  display: grid; place-items: center;
+  margin-top: 1px;
+  transition: border .15s ease, background .15s ease, box-shadow .15s ease;
+}
+.check input:hover{ border-color: rgba(17,17,17,1); }
+.check input:checked{
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.check input:checked::after{
+  content:"";
+  width: 12px; height: 12px;
+  background: var(--white);
+  clip-path: polygon(14% 44%, 0 58%, 40% 100%, 100% 24%, 86% 10%, 40% 74%);
+}
+
+/* ===== Actions / button ===== */
+.lead__actions{ display:flex; align-items:center; gap:12px; }
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: none; cursor: pointer;
+  font: 600 16px/1 "Mulish", sans-serif;
+}
+.btn-primary{
+  background: var(--secondary); color:#fff;
+}
+.btn-primary:hover{ filter: brightness(.98); }
+.btn-primary:active{ transform: translateY(1px); }
+.btn-icon{ display:inline-flex; width: 24px; height: 24px; align-items:center; justify-content:center; }
+
+.form-note{
+  font: 400 14px/1.3 "Mulish", sans-serif;
+  color: var(--primary);
+}
+
+/* Контейнер-рамка как на макете */
+.lead{
+  background: var(--light-grey);
+}
+
+/* Индикация статуса отправки */
+.form-note {
+  margin-top: 12px;
+  font: 400 14px/1.4 "Mulish", sans-serif;
+  color: var(--dark);
+  transition: opacity .2s ease;
+}
+.form-note.success { color: #1a7f37; }    /* зелёный */
+.form-note.error   { color: #d93025; }    /* красный */
+.form-note.info    { color: var(--primary); }
+
+/* Кнопка в состоянии загрузки */
+.btn.is-loading {
+  pointer-events: none;
+  opacity: .85;
+  position: relative;
+}
+
+/* Спиннер справа от текста (поверх иконки) */
+.btn.is-loading::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;               /* белый, т.к. у тебя primary — оранжевый */
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: lodash-spin 1s linear infinite;
+}
+
+/* Если фон кнопки не оранжевый — поменяй цвет спиннера как нужно */
+@keyframes lodash-spin { to { transform: rotate(360deg); } }
+
+
+
