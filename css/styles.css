@@ -1,4 +1,5 @@
 :root {
+  /* === COLORS === */
   --primary: #243B2D;    /* основной зелёный */
   --secondary: #F53B10;  /* акцентный красно-оранжевый */
   --dark: #111111;
@@ -6,6 +7,32 @@
   --grey: #F0F0F0;
   --light-grey: #F5F5F5;
   --white: #FFFFFF;
+
+  /* === BREAKPOINTS === */
+  --bp-mobile: 480px;     /* мобильные телефоны */
+  --bp-tablet: 768px;     /* планшеты */
+  --bp-desktop: 1024px;   /* настольные компьютеры */
+  --bp-large: 1440px;     /* большие экраны */
+
+  /* === SPACING === */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+  --spacing-xxl: 80px;
+  --spacing-xxxl: 120px;
+
+  /* === CONTAINER WIDTHS === */
+  --container-mobile: 100%;
+  --container-tablet: 100%;
+  --container-desktop: 1200px;
+  --container-large: 1440px;
+
+  /* === PADDINGS === */
+  --padding-mobile: var(--spacing-sm);
+  --padding-tablet: var(--spacing-lg);
+  --padding-desktop: var(--spacing-xxl);
 }
 
 body {
@@ -233,12 +260,7 @@ main{ padding-top: 0px; }      /* под высоту меню (подгони �
 /* Якоря не прячутся под меню при скролле к секции */
 section[id]{ scroll-margin-top: 72px; }
 
-/* Адаптив: при узком экране притягиваем меню к краям */
-@media (max-width: 900px){
-  .header__nav{ right: 16px; }
-  main{ padding-top: 64px; }
-  section[id]{ scroll-margin-top: 64px; }
-}
+/* Адаптив: при узком экране притягиваем меню к краям - MOVED TO CONSOLIDATED SECTION */
 
 
 /* === HERO SECTION === */
@@ -313,15 +335,7 @@ section[id]{ scroll-margin-top: 72px; }
   object-fit: cover;
 }
 
-/* АДАПТИВ */
-@media (max-width: 1024px) {
-  .hero__title { font-size: 48px; }
-}
-@media (max-width: 768px) {
-  .hero__container { flex-direction: column; padding: 80px 24px; }
-  .hero__content { padding: 0; }
-  .hero__title { font-size: 38px; }
-}
+/* АДАПТИВ - MOVED TO CONSOLIDATED SECTION */
 
 /* === BENEFITS SECTION === */
 .benefits {
@@ -398,13 +412,7 @@ section[id]{ scroll-margin-top: 72px; }
   /* перекрашивает SVG в оранжевый */
 }
 
-/* Адаптив */
-@media (max-width: 768px) {
-  .benefits__container {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-}
+/* Адаптив - MOVED TO CONSOLIDATED SECTION */
 
 /* === ABOUT SECTION === */
 /* Внешний контейнер: зелёный фон, большие отступы */
@@ -472,15 +480,7 @@ section[id]{ scroll-margin-top: 72px; }
   border-radius: 2px;
 }
 
-/* Адаптив */
-@media (max-width: 1024px){
-  .about__stats{ grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 640px){
-  .about__outer{ padding: 80px 24px; }
-  .about__inner{ padding: 20px 24px; }
-  .about__stats{ grid-template-columns: 1fr; }
-}
+/* Адаптив - MOVED TO CONSOLIDATED SECTION */
 
 /* === TESTIMONIALS SECTION === */
 .testimonials__outer{
@@ -546,14 +546,7 @@ section[id]{ scroll-margin-top: 72px; }
   color: var(--dark);
 }
 
-/* адаптив */
-@media (max-width: 1024px){
-  .testimonials__grid{ grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 640px){
-  .testimonials__outer{ padding: 80px 24px; }
-  .testimonials__grid{ grid-template-columns: 1fr; }
-}
+/* адаптив - MOVED TO CONSOLIDATED SECTION */
 
 /* OUTER контейнер: padding 80 120, прозрачный фон */
 /* контейнеры */
@@ -645,9 +638,7 @@ section[id]{ scroll-margin-top: 72px; }
   outline:2px solid rgba(36,59,45,.35); outline-offset:2px;
 }
 
-@media (max-width:640px){
-  .accordion__q{ font-size:18px; }
-}
+/* адаптив - MOVED TO CONSOLIDATED SECTION */
 
 /* OUTER / INNER по макету */
 .contacts__outer{ padding:80px 120px; background:transparent; }
@@ -694,12 +685,7 @@ section[id]{ scroll-margin-top: 72px; }
   width:100%; height:100%; min-height:320px; border:0; border-radius:0;
 }
 
-/* Адаптив */
-@media (max-width: 900px){
-  .contacts__outer{ padding:60px 24px; }
-  .contacts__inner{ grid-template-columns: 1fr; }
-  .contacts__right{ order:2; margin-top:16px; }
-}
+/* Адаптив - MOVED TO CONSOLIDATED SECTION */
 
 .footer__outer {
   background: var(--dark);
@@ -915,6 +901,262 @@ section[id]{ scroll-margin-top: 72px; }
 
 /* Если фон кнопки не оранжевый — поменяй цвет спиннера как нужно */
 @keyframes lodash-spin { to { transform: rotate(360deg); } }
+
+/* ========================================
+   RESPONSIVE UTILITY CLASSES
+   ======================================== */
+
+/* Hide/Show utilities */
+.hide-mobile { display: block; }
+.show-mobile { display: none; }
+.hide-tablet { display: block; }
+.show-tablet { display: none; }
+.hide-desktop { display: block; }
+.show-desktop { display: none; }
+
+/* Text alignment utilities */
+.text-center-mobile { text-align: left; }
+.text-left-mobile { text-align: left; }
+
+/* Spacing utilities */
+.gap-mobile { gap: var(--spacing-sm); }
+.gap-tablet { gap: var(--spacing-md); }
+.gap-desktop { gap: var(--spacing-lg); }
+
+/* Padding utilities */
+.p-mobile { padding: var(--padding-mobile); }
+.p-tablet { padding: var(--padding-tablet); }
+.p-desktop { padding: var(--padding-desktop); }
+
+/* Margin utilities */
+.mb-mobile { margin-bottom: var(--spacing-sm); }
+.mb-tablet { margin-bottom: var(--spacing-md); }
+.mb-desktop { margin-bottom: var(--spacing-lg); }
+
+/* ========================================
+   CONSOLIDATED RESPONSIVE DESIGN
+   ======================================== */
+
+/*
+  BREAKPOINT SYSTEM DOCUMENTATION
+  
+  This CSS uses a mobile-first approach with the following breakpoints:
+  
+  📱 Mobile:    0px - 480px     (--bp-mobile: 480px)
+  📱 Tablet:    481px - 768px   (--bp-tablet: 768px)
+  💻 Desktop:   769px - 1024px  (--bp-desktop: 1024px)
+  🖥️  Large:     1025px+         (--bp-large: 1440px)
+  
+  HOW TO MODIFY BREAKPOINTS:
+  1. Change the CSS variables at the top of the file (:root section)
+  2. All media queries will automatically use the new values
+  
+  SPACING SYSTEM:
+  --spacing-xs:   8px     (small gaps)
+  --spacing-sm:   16px    (mobile padding)
+  --spacing-md:   24px    (tablet spacing)
+  --spacing-lg:   32px    (desktop spacing)
+  --spacing-xl:   48px    (large gaps)
+  --spacing-xxl:  80px    (section padding)
+  --spacing-xxxl: 120px   (large section padding)
+  
+  UTILITY CLASSES:
+  .hide-mobile, .show-mobile     - Show/hide on mobile
+  .hide-tablet, .show-tablet     - Show/hide on tablet
+  .hide-desktop, .show-desktop   - Show/hide on desktop
+  .text-center-mobile            - Center text on mobile only
+  .p-mobile, .p-tablet, .p-desktop - Responsive padding
+  .gap-mobile, .gap-tablet, .gap-desktop - Responsive gaps
+*/
+
+/* === MOBILE FIRST: Base styles are mobile by default === */
+
+/* === MOBILE (up to 480px) === */
+@media (max-width: 480px) {
+  /* Container adjustments */
+  .container {
+    padding: 0 var(--padding-mobile);
+  }
+  
+  /* Typography adjustments */
+  h1 { font-size: 32px; }
+  h2 { font-size: 24px; }
+  h3 { font-size: 20px; }
+  
+  /* Utility classes activation */
+  .hide-mobile { display: none !important; }
+  .show-mobile { display: block !important; }
+  .text-center-mobile { text-align: center !important; }
+  
+  /* Header mobile */
+  .header__container { padding: 16px var(--padding-mobile); }
+  .header__logo img { height: 48px; }
+  .header__nav { right: 16px; top: 24px; }
+  
+  /* Hero mobile */
+  .hero__container { 
+    flex-direction: column; 
+    padding: 60px var(--padding-mobile); 
+    gap: var(--spacing-md);
+  }
+  .hero__content { padding: 0; }
+  .hero__title { font-size: 32px; }
+  
+  /* Benefits mobile */
+  .benefits { padding: 60px var(--padding-mobile); }
+  .benefits__container { 
+    grid-template-columns: 1fr; 
+    gap: var(--spacing-md);
+  }
+  
+  /* About mobile */
+  .about__outer { padding: 60px var(--padding-mobile); }
+  .about__inner { padding: 20px var(--padding-mobile); }
+  .about__stats { 
+    grid-template-columns: 1fr; 
+    gap: var(--spacing-sm);
+  }
+  
+  /* Testimonials mobile */
+  .testimonials__outer { padding: 60px var(--padding-mobile); }
+  .testimonials__grid { grid-template-columns: 1fr; }
+  
+  /* FAQ mobile */
+  .faq__outer { padding: 60px var(--padding-mobile); }
+  .accordion__q { font-size: 18px; }
+  
+  /* Contacts mobile */
+  .contacts__outer { padding: 60px var(--padding-mobile); }
+  .contacts__inner { grid-template-columns: 1fr; }
+  .contacts__right { order: 2; margin-top: 16px; }
+  
+  /* Footer mobile */
+  .footer__outer { padding: 40px var(--padding-mobile); }
+  .footer__nav { 
+    flex-direction: column; 
+    gap: 16px; 
+    text-align: center;
+  }
+  
+  /* Lead form mobile */
+  .lead__outer { padding: 60px var(--padding-mobile); }
+  .lead__inner { max-width: 100%; }
+}
+
+/* === TABLET (481px to 768px) === */
+@media (min-width: 481px) and (max-width: 768px) {
+  /* Container adjustments */
+  .container {
+    padding: 0 var(--padding-tablet);
+  }
+  
+  /* Utility classes activation */
+  .hide-tablet { display: none !important; }
+  .show-tablet { display: block !important; }
+  
+  /* Header tablet */
+  .header__container { padding: 20px var(--padding-tablet); }
+  .header__nav { right: var(--padding-tablet); }
+  
+  /* Hero tablet */
+  .hero__container { 
+    flex-direction: column; 
+    padding: 80px var(--padding-tablet);
+  }
+  .hero__title { font-size: 48px; }
+  
+  /* Benefits tablet */
+  .benefits { padding: 80px var(--padding-tablet); }
+  .benefits__container { 
+    grid-template-columns: 1fr; 
+    gap: var(--spacing-lg);
+  }
+  
+  /* About tablet */
+  .about__outer { padding: 80px var(--padding-tablet); }
+  .about__stats { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: var(--spacing-md);
+  }
+  
+  /* Testimonials tablet */
+  .testimonials__outer { padding: 80px var(--padding-tablet); }
+  .testimonials__grid { grid-template-columns: 1fr 1fr; }
+  
+  /* FAQ tablet */
+  .faq__outer { padding: 80px var(--padding-tablet); }
+  
+  /* Contacts tablet */
+  .contacts__outer { padding: 60px var(--padding-tablet); }
+  .contacts__inner { grid-template-columns: 1fr; }
+  
+  /* Footer tablet */
+  .footer__outer { padding: 40px var(--padding-tablet); }
+  
+  /* Lead form tablet */
+  .lead__outer { padding: 80px var(--padding-tablet); }
+  .lead__inner { max-width: 80%; }
+}
+
+/* === DESKTOP (769px to 1024px) === */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Utility classes activation */
+  .hide-desktop { display: none !important; }
+  .show-desktop { display: block !important; }
+  
+  /* Hero desktop */
+  .hero__title { font-size: 48px; }
+  
+  /* About desktop */
+  .about__stats { grid-template-columns: repeat(2, 1fr); }
+  
+  /* Testimonials desktop */
+  .testimonials__grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* === LARGE SCREENS (1025px and up) === */
+@media (min-width: 1025px) {
+  /* All default styles apply - this is our base desktop design */
+  
+  /* Utility classes activation */
+  .hide-desktop { display: none !important; }
+  .show-desktop { display: block !important; }
+}
+
+/*
+  ========================================
+  QUICK REFERENCE FOR MOBILE OPTIMIZATION
+  ========================================
+  
+  TO CHANGE MOBILE BREAKPOINTS:
+  1. Edit the --bp-mobile, --bp-tablet, --bp-desktop variables in :root
+  2. All media queries will automatically update
+  
+  TO ADD NEW MOBILE STYLES:
+  1. Find the appropriate breakpoint section above
+  2. Add your styles within the existing @media block
+  
+  TO CREATE NEW UTILITY CLASSES:
+  1. Add base class in the utility section (around line 950)
+  2. Add responsive behavior in each breakpoint section
+  
+  EXAMPLE - Adding a new responsive font size:
+  
+  // 1. Add utility class:
+  .text-large-mobile { font-size: 18px; }
+  
+  // 2. Add to mobile breakpoint:
+  @media (max-width: 480px) {
+    .text-large-mobile { font-size: 24px !important; }
+  }
+  
+  COMMON MOBILE PATTERNS:
+  - Stack columns: grid-template-columns: 1fr;
+  - Reduce padding: padding: var(--padding-mobile);
+  - Hide elements: display: none !important;
+  - Center text: text-align: center !important;
+  - Smaller fonts: font-size: [smaller value];
+*/
 
 
 
