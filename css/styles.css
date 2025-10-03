@@ -991,7 +991,7 @@ section[id]{ scroll-margin-top: 72px; }
   /* Header mobile */
   .header__container { padding: 16px var(--padding-mobile); }
   .header__logo img { height: 48px; }
-  .header__nav { right: 16px; top: 24px; }
+  .header__nav { display: none; } /* Hide navigation on mobile */
   
   /* Hero mobile */
   .hero__container { 
@@ -1008,13 +1008,18 @@ section[id]{ scroll-margin-top: 72px; }
     grid-template-columns: 1fr; 
     gap: var(--spacing-md);
   }
+  .benefits-card {padding: 16px 16px 32px 16px;}
   
   /* About mobile */
   .about__outer { padding: 60px var(--padding-mobile); }
   .about__inner { padding: 20px var(--padding-mobile); }
+  .about__title{
+    padding: 8px;
+  }
   .about__stats { 
     grid-template-columns: 1fr; 
     gap: var(--spacing-sm);
+    padding: 0;
   }
   
   /* Testimonials mobile */
@@ -1056,7 +1061,10 @@ section[id]{ scroll-margin-top: 72px; }
   
   /* Header tablet */
   .header__container { padding: 20px var(--padding-tablet); }
-  .header__nav { right: var(--padding-tablet); }
+  .header__nav { 
+    display: flex; /* Show navigation on tablet and up */
+    right: var(--padding-tablet); 
+  }
   
   /* Hero tablet */
   .hero__container { 

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Quick PHP Test - LOZUR</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 20px auto; 
+            padding: 20px; 
+            background: #f8f9fa;
+        }
+        .container { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group { margin: 15px 0; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #243B2D; }
+        input, select { 
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid #ddd; 
+            border-radius: 6px; 
+            font-size: 16px;
+        }
+        input:focus { border-color: #243B2D; outline: none; }
+        button { 
+            background: #F53B10; 
+            color: white; 
+            padding: 15px 30px; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover { background: #d63210; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        .result { 
+            margin: 20px 0; 
+            padding: 20px; 
+            border-radius: 6px; 
+            border-left: 5px solid;
+        }
+        .success { 
+            background: #d4edda; 
+            color: #155724; 
+            border-color: #28a745;
+        }
+        .error { 
+            background: #f8d7da; 
+            color: #721c24; 
+            border-color: #dc3545;
+        }
+        .info { 
+            background: #d1ecf1; 
+            color: #0c5460; 
+            border-color: #17a2b8;
+        }
+        .loading { 
+            background: #fff3cd; 
+            color: #856404; 
+            border-color: #ffc107;
+        }
+        pre { 
+            background: #f8f9fa; 
+            padding: 15px; 
+            border-radius: 4px; 
+            overflow-x: auto;
+            font-size: 14px;
+        }
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #F53B10;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-success { background: #28a745; }
+        .status-error { background: #dc3545; }
+        .status-pending { background: #ffc107; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 LOZUR PHP Request Test</h1>
+        <p>Тестирование отправки заявки с обновленным email: <strong>Lojour.Pinsk@yandex.by</strong></p>
+        
+        <form id="testForm">
+            <div class="form-group">
+                <label for="fio">👤 ФИО (минимум 6 символов):</label>
+                <input type="text" id="fio" name="fio" value="Петров Петр Петрович" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">📱 Телефон (+375XXXXXXXXX):</label>
+                <input type="tel" id="phone" name="phone" value="+375291234567" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="exp">🚗 Стаж вождения (лет, минимум 2):</label>
+                <input type="number" id="exp" name="exp" value="5" min="2" required>
+            </div>
+            
+            <div class="form-group">
+                <label>📄 Документы:</label>
+                <div style="margin-top: 10px;">
+                    <label><input type="checkbox" name="docs" value="Паспорт" checked style="width: auto; margin-right: 8px;"> Паспорт</label>
+                    <label><input type="checkbox" name="docs" value="Водительские права" checked style="width: auto; margin-right: 8px;"> Водительские права</label>
+                    <label><input type="checkbox" name="docs" value="Медицинская справка" style="width: auto; margin-right: 8px;"> Медицинская справка</label>
+                </div>
+            </div>
+            
+            <button type="submit" id="submitBtn">
+                <span id="buttonText">🧪 Тестировать отправку</span>
+            </button>
+        </form>
+        
+        <div id="result"></div>
+        
+        <div id="instructions" style="margin-top: 40px; padding: 20px; background: #e9ecef; border-radius: 6px;">
+            <h3>📋 Как использовать этот тест:</h3>
+            <ol>
+                <li><strong>Загрузите файлы на сервер</strong> с поддержкой PHP</li>
+                <li><strong>Откройте этот файл через браузер</strong> (http://yoursite.com/test_request.html)</li>
+                <li><strong>Заполните форму</strong> и нажмите кнопку отправки</li>
+                <li><strong>Проверьте результат</strong> и почту Lojour.Pinsk@yandex.by</li>
+            </ol>
+            
+            <h4>🔧 Для отладки:</h4>
+            <p>В файле <code>send.php</code> измените <code>$DEBUG_MODE = false;</code> на <code>$DEBUG_MODE = true;</code></p>
+            
+            <h4>📧 Проверка email:</h4>
+            <p>Письма будут отправляться на: <strong>Lojour.Pinsk@yandex.by</strong></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const resultDiv = document.getElementById('result');
+            const submitBtn = document.getElementById('submitBtn');
+            const buttonText = document.getElementById('buttonText');
+            
+            // Показываем состояние загрузки
+            submitBtn.disabled = true;
+            buttonText.innerHTML = '<span class="spinner"></span>Отправляем...';
+            
+            resultDiv.innerHTML = `
+                <div class="loading">
+                    <span class="status-indicator status-pending"></span>
+                    <strong>Отправляем тестовый запрос...</strong>
+                    <p>Проверяем подключение к send.php</p>
+                </div>
+            `;
+            
+            const formData = new FormData(e.target);
+            
+            // Собираем выбранные документы
+            const docs = Array.from(document.querySelectorAll('input[name="docs"]:checked'))
+                .map(input => input.value);
+            if (docs.length) {
+                formData.append('docs_list', docs.join(', '));
+            }
+            
+            const startTime = Date.now();
+            
+            try {
+                const response = await fetch('send.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const responseTime = Date.now() - startTime;
+                const responseText = await response.text();
+                
+                let data;
+                let isValidJson = true;
+                
+                try {
+                    data = JSON.parse(responseText);
+                } catch (parseError) {
+                    isValidJson = false;
+                    data = { ok: false, error: 'Ответ не является валидным JSON' };
+                }
+                
+                if (response.ok && data.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <span class="status-indicator status-success"></span>
+                            <h3>✅ Успешно отправлено!</h3>
+                            <p><strong>Email отправлен на:</strong> Lojour.Pinsk@yandex.by</p>
+                            <p><strong>Время ответа:</strong> ${responseTime}ms</p>
+                            <p><strong>Данные:</strong></p>
+                            <ul>
+                                <li>ФИО: ${formData.get('fio')}</li>
+                                <li>Телефон: ${formData.get('phone')}</li>
+                                <li>Стаж: ${formData.get('exp')} лет</li>
+                                <li>Документы: ${formData.get('docs_list') || 'не выбрано'}</li>
+                            </ul>
+                            <p>🎉 <strong>Проверьте почту (включая папку спам)!</strong></p>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <span class="status-indicator status-error"></span>
+                            <h3>❌ Ошибка отправки</h3>
+                            <p><strong>HTTP Status:</strong> ${response.status} ${response.statusText}</p>
+                            <p><strong>Время ответа:</strong> ${responseTime}ms</p>
+                            <p><strong>Ошибка:</strong> ${data.error || 'Неизвестная ошибка'}</p>
+                            ${!isValidJson ? `<p><strong>Raw Response:</strong></p><pre>${responseText}</pre>` : ''}
+                        </div>
+                    `;
+                }
+                
+                // Добавляем техническую информацию
+                resultDiv.innerHTML += `
+                    <div class="info" style="margin-top: 15px;">
+                        <h4>🔍 Техническая информация</h4>
+                        <p><strong>URL:</strong> ${window.location.origin}/send.php</p>
+                        <p><strong>Method:</strong> POST</p>
+                        <p><strong>Response Headers:</strong></p>
+                        <pre>${Array.from(response.headers.entries()).map(([k,v]) => k + ': ' + v).join('\\n')}</pre>
+                        ${isValidJson ? `<p><strong>JSON Response:</strong></p><pre>${JSON.stringify(data, null, 2)}</pre>` : ''}
+                    </div>
+                `;
+                
+            } catch (error) {
+                const responseTime = Date.now() - startTime;
+                
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <span class="status-indicator status-error"></span>
+                        <h3>🚨 Критическая ошибка</h3>
+                        <p><strong>Время:</strong> ${responseTime}ms</p>
+                        <p><strong>Ошибка:</strong> ${error.message}</p>
+                        
+                        <h4>Возможные причины:</h4>
+                        <ul>
+                            <li><strong>Файл send.php не найден</strong> - проверьте, что файл загружен на сервер</li>
+                            <li><strong>PHP не настроен</strong> - обратитесь к хостинг-провайдеру</li>
+                            <li><strong>Проблемы с сетью</strong> - проверьте интернет-соединение</li>
+                            <li><strong>CORS ошибки</strong> - файлы должны быть на одном домене</li>
+                        </ul>
+                        
+                        <h4>🛠️ Что делать:</h4>
+                        <ol>
+                            <li>Убедитесь, что файлы загружены на сервер с PHP</li>
+                            <li>Откройте send.php напрямую в браузере</li>
+                            <li>Проверьте логи сервера</li>
+                            <li>Включите отладку в send.php</li>
+                        </ol>
+                    </div>
+                `;
+            } finally {
+                // Восстанавливаем кнопку
+                submitBtn.disabled = false;
+                buttonText.innerHTML = '🧪 Тестировать отправку';
+            }
+        });
+        
+        // Автоматическая проверка доступности send.php при загрузке страницы
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch('send.php', { method: 'GET' });
+                const statusDiv = document.createElement('div');
+                
+                if (response.status === 405) {
+                    // Method Not Allowed - это хорошо, значит PHP работает
+                    statusDiv.innerHTML = `
+                        <div class="success">
+                            <span class="status-indicator status-success"></span>
+                            <strong>✅ send.php доступен и работает</strong>
+                        </div>
+                    `;
+                } else {
+                    statusDiv.innerHTML = `
+                        <div class="info">
+                            <span class="status-indicator status-pending"></span>
+                            <strong>⚠️ send.php отвечает с кодом ${response.status}</strong>
+                        </div>
+                    `;
+                }
+                
+                document.getElementById('result').appendChild(statusDiv);
+            } catch (error) {
+                const statusDiv = document.createElement('div');
+                statusDiv.innerHTML = `
+                    <div class="error">
+                        <span class="status-indicator status-error"></span>
+                        <strong>❌ send.php недоступен: ${error.message}</strong>
+                    </div>
+                `;
+                document.getElementById('result').appendChild(statusDiv);
+            }
+        });
+    </script>
+</body>
+</html>
