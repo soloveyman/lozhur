@@ -224,6 +224,12 @@ document.querySelectorAll('.contacts__email').forEach(btn => {
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
+    if (!form.checkValidity()) {
+      result.style.display = '';
+      result.innerHTML = 'Please fill out the required fields correctly.';
+      form.reportValidity();
+      return;
+    }
     const formData = new FormData(form);
     const object = Object.fromEntries(formData);
 
@@ -246,6 +252,9 @@ document.querySelectorAll('.contacts__email').forEach(btn => {
     const json = JSON.stringify(object);
     result.style.display = '';
     result.innerHTML = 'Please wait...';
+    const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
+    let wasSuccess = false;
 
     fetch('https://api.web3forms.com/submit', {
       method: 'POST',
@@ -260,6 +269,7 @@ document.querySelectorAll('.contacts__email').forEach(btn => {
         const data = await response.json().catch(() => ({}));
         if (data && data.success) {
           result.innerHTML = 'Form submitted successfully';
+          wasSuccess = true;
         } else {
           console.log(data);
           result.innerHTML = (data && data.message) || 'Submission failed';
@@ -270,10 +280,11 @@ document.querySelectorAll('.contacts__email').forEach(btn => {
         result.innerHTML = 'Something went wrong!';
       })
       .then(function() {
-        form.reset();
-        setTimeout(() => {
-          result.style.display = 'none';
-        }, 3000);
+        if (submitBtn) submitBtn.disabled = false;
+        if (wasSuccess) {
+          form.reset();
+          setTimeout(() => { result.style.display = 'none'; }, 3000);
+        }
       });
   });
 })();

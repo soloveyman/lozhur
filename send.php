@@ -66,7 +66,7 @@ if (!empty($errors)) {
 }
 
 // Configure recipient
-$to = 'soloveymann@gmail.com'; // TODO: set your destination email
+$to = 'lojour.pinsk@yandex.by'; // TODO: set your destination email
 
 // Compose email
 $subject = 'New form submission from site';
@@ -110,6 +110,13 @@ $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 $headers = [];
 $headers[] = 'MIME-Version: 1.0';
 $headers[] = 'Content-Type: text/plain; charset=UTF-8';
+
+// Robust From to satisfy hosting providers
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$fromEmail = 'no-reply@' . preg_replace('/^www\./', '', $host);
+$fromName  = 'Website';
+$headers[] = 'From: ' . $fromName . ' <' . $fromEmail . '>';
+
 if ($email !== '') {
   // Set Reply-To if user provided email
   $headers[] = 'Reply-To: ' . $email;
@@ -117,7 +124,9 @@ if ($email !== '') {
 $headersStr = implode("\r\n", $headers);
 
 // Send
-$sent = @mail($to, $encodedSubject, $body, $headersStr);
+// Use envelope sender (-f) to improve deliverability on many hosts
+$params = '-f ' . $fromEmail;
+$sent = @mail($to, $encodedSubject, $body, $headersStr, $params);
 
 if ($sent) {
   echo json_encode(['ok' => true]);
