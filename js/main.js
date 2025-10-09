@@ -25,23 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ===== Простейшая обработка формы (демо)
-  const form = document.getElementById('leadForm');
-  const note = document.getElementById('formNote');
-  if (form && note) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const fd = new FormData(form);
-      const payload = Object.fromEntries(fd.entries());
-      if (!payload.name || !payload.phone || !payload.city || !payload.consent) {
-        note.textContent = 'Проверьте поля формы';
-        return;
-      }
-      console.log('LEAD_PAYLOAD', payload); // TODO: интеграция отправки
-      note.textContent = 'Заявка принята. Мы свяжемся с вами.';
-      form.reset();
-    });
-  }
+  // (демо-обработчик удалён; см. полноценную логику ниже)
 
   // ===== FAQ: аккордеон на .accordion__item
   document.querySelectorAll('.accordion__item').forEach(item => {
