@@ -146,8 +146,10 @@
         <!-- ====== LEAD FORM: ЛОЖУР ====== -->
       <section id="form" class="lead">
         <div class="lead__outer">
-          <form id="leadForm" class="lead__inner" action="send.php" method="post" novalidate>
+          <form id="leadForm" class="lead__inner" action="https://api.web3forms.com/submit" method="POST" novalidate>
             <h3 class="about-card__value">Информация</h3>
+            <!-- Access Key -->
+            <input type="hidden" name="access_key" value="d2ffa805-0dd4-45b7-9a51-5e2027a14099">
 
             <!-- ФИО -->
             <div class="fi form-field" data-field="fio">

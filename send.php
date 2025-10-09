@@ -1,50 +1,129 @@
 <?php
+// Simple JSON API endpoint for form submission
+// Matches frontend expectation: returns { ok: true } on success, { error: string } otherwise
+
+// Force JSON response
 header('Content-Type: application/json; charset=utf-8');
+header('X-Content-Type-Options: nosniff');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['ok' => false, 'error' => 'method_not_allowed']);
-    exit;
+// Allow only POST
+$method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+if ($method !== 'POST') {
+  http_response_code(405);
+  echo json_encode(['error' => 'Method Not Allowed']);
+  exit;
 }
 
-// Поддержка JSON-постов и обычной формы
-$isJson = stripos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false;
+// Parse input (supports both form-data and JSON bodies)
+$contentType = $_SERVER['CONTENT_TYPE'] ?? ($_SERVER['HTTP_CONTENT_TYPE'] ?? '');
+$isJson = stripos($contentType, 'application/json') !== false;
+
 if ($isJson) {
-    $raw = file_get_contents('php://input');
-    $data = json_decode($raw, true) ?: [];
-    $fio   = trim($data['name'] ?? $data['fio'] ?? '');
-    $phone = trim($data['phone'] ?? '');
-    $exp   = intval($data['experience'] ?? $data['exp'] ?? 0);
-    $docs  = $data['docs'] ?? [];
+  $raw = file_get_contents('php://input');
+  $data = json_decode($raw, true);
+  if (!is_array($data)) $data = [];
 } else {
-    $fio   = trim($_POST['fio'] ?? '');
-    $phone = trim($_POST['phone'] ?? '');
-    $exp   = intval($_POST['exp'] ?? 0);
-    $docs  = $_POST['docs'] ?? [];
+  $data = $_POST;
 }
 
-if (mb_strlen($fio) < 6 || !preg_match('/^\+375\d{9}$/', $phone) || $exp < 2) {
-    http_response_code(422);
-    echo json_encode(['ok' => false, 'error' => 'validation_failed']);
-    exit;
+// Helper to fetch trimmed values
+$get = function (string $key) use ($data): string {
+  return isset($data[$key]) ? trim((string)$data[$key]) : '';
+};
+
+// Honeypot (optional field commonly named 'botcheck')
+$botcheck = $get('botcheck');
+if ($botcheck !== '') {
+  // Silently accept to avoid helping bots tune payloads
+  echo json_encode(['ok' => true, 'message' => 'Thanks']);
+  exit;
 }
 
-$to = "lojour.pinsk@yandex.by"; // куда отправлять
-$subject = "Новая анкета с сайта";
-$body = "ФИО: $fio\nТелефон: $phone\nСтаж: $exp\nДокументы: " . (is_array($docs)?implode(', ',$docs):'');
-$headers = "From: no-reply@lojour.by\r\nContent-Type: text/plain; charset=utf-8";
+// Collect known fields (add/rename as your form requires)
+$fio       = $get('fio');
+$phone     = $get('phone');
+$exp       = $get('exp');
+$emailRaw  = $get('email');
+$email     = filter_var($emailRaw, FILTER_VALIDATE_EMAIL) ? $emailRaw : '';
+$name      = $get('name');
+$message   = $get('message');
+$docsList  = $get('docs_list');
 
-// Для локальной разработки можно выключить отправку письма
-$DEV_NO_MAIL = false; // true -> не отправлять, просто отвечать ok
+// Basic validation (tune rules to match frontend)
+$errors = [];
+if ($fio !== '' && mb_strlen($fio) < 2) { $errors[] = 'fio'; }
+if ($phone === '') { $errors[] = 'phone'; }
+if ($exp !== '' && !is_numeric($exp)) { $errors[] = 'exp'; }
+if ($emailRaw !== '' && $email === '') { $errors[] = 'email'; }
 
-if ($DEV_NO_MAIL) {
-    echo json_encode(['ok' => true, 'dev' => true]);
-    exit;
+if (!empty($errors)) {
+  http_response_code(422);
+  echo json_encode([
+    'error'  => 'Validation error',
+    'fields' => $errors
+  ]);
+  exit;
 }
 
-if (mail($to, $subject, $body, $headers)) {
-    echo json_encode(['ok' => true]);
+// Configure recipient
+$to = 'soloveymann@gmail.com'; // TODO: set your destination email
+
+// Compose email
+$subject = 'New form submission from site';
+$lines = [];
+if ($fio !== '')     { $lines[] = 'FIO: ' . $fio; }
+if ($name !== '')    { $lines[] = 'Name: ' . $name; }
+if ($email !== '')   { $lines[] = 'Email: ' . $email; }
+if ($phone !== '')   { $lines[] = 'Phone: ' . $phone; }
+if ($exp !== '')     { $lines[] = 'Experience: ' . $exp; }
+if ($docsList !== ''){ $lines[] = 'Docs: ' . $docsList; }
+if ($message !== '') { $lines[] = "Message:\n" . $message; }
+
+// Include individual boolean flags for any docs_* fields
+foreach ($data as $k => $v) {
+  if (strpos($k, 'docs_') === 0) {
+    $title = strtoupper(str_replace('_', ' ', substr($k, 5)));
+    $val = (string)$v;
+    $lines[] = 'DOC ' . $title . ': ' . ($val === 'true' ? 'true' : 'false');
+  }
+}
+
+// Include explicit ordered values (docs_value_1, docs_value_2, ...)
+$orderedValues = [];
+foreach ($data as $k => $v) {
+  if (preg_match('/^docs_value_(\d+)$/', $k, $m)) {
+    $orderedValues[(int)$m[1]] = (string)$v;
+  }
+}
+if (!empty($orderedValues)) {
+  ksort($orderedValues, SORT_NUMERIC);
+  $lines[] = 'Docs values:';
+  foreach ($orderedValues as $idx => $val) {
+    $lines[] = '  #' . $idx . ': ' . $val;
+  }
+}
+
+$body = implode("\n", $lines);
+
+// Headers
+$encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+$headers = [];
+$headers[] = 'MIME-Version: 1.0';
+$headers[] = 'Content-Type: text/plain; charset=UTF-8';
+if ($email !== '') {
+  // Set Reply-To if user provided email
+  $headers[] = 'Reply-To: ' . $email;
+}
+$headersStr = implode("\r\n", $headers);
+
+// Send
+$sent = @mail($to, $encodedSubject, $body, $headersStr);
+
+if ($sent) {
+  echo json_encode(['ok' => true]);
 } else {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'mail_failed']);
+  http_response_code(500);
+  echo json_encode(['error' => 'Mail send failed']);
 }
+
+

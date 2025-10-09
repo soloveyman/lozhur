@@ -170,10 +170,19 @@ document.querySelectorAll('.contacts__email').forEach(btn => {
     // Готовим данные
     const fd = new FormData(form);
 
-    // Склеим чекбоксы (docs) в читаемый список — опционально
-    const docs = Array.from(form.querySelectorAll('input[name="docs"]:checked'))
-                      .map(i => i.value || i.nextElementSibling?.textContent?.trim());
-    if (docs.length) fd.append('docs_list', docs.join(', '));
+    // Склеим чекбоксы (docs) в читаемый список и добавим булевы поля по каждому
+    const allDocs = Array.from(form.querySelectorAll('input[name="docs"], input[name="docs[]"]'));
+    const slug = (s) => (s || '').toString().trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+    const checkedLabels = [];
+    allDocs.forEach((i) => {
+      const title = i.value || i.nextElementSibling?.textContent?.trim() || 'item';
+      if (i.checked) checkedLabels.push(title);
+      fd.append(`docs_${slug(title)}`, i.checked ? 'true' : 'false');
+    });
+    if (checkedLabels.length) {
+      fd.append('docs_list', checkedLabels.join(', '));
+      checkedLabels.forEach((t, i) => fd.append(`docs_value_${i + 1}`, t));
+    }
 
     // --- Индикация загрузки ---
     setNote('Отправляем…', 'info');
@@ -206,3 +215,65 @@ document.querySelectorAll('.contacts__email').forEach(btn => {
 
 
   
+
+// ===== Web3Forms submit for #form =====
+(() => {
+  const form = document.getElementById('form');
+  const result = document.getElementById('result');
+  if (!form || !result) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const object = Object.fromEntries(formData);
+
+    // Include boolean flags for all docs checkboxes (true/false per title) and explicit values list
+    const slug = (s) => (s || '').toString().trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+    const allDocsCbs = form.querySelectorAll('input[type="checkbox"][name="docs"], input[type=\"checkbox\"][name=\"docs[]\"]');
+    const selectedTitles = [];
+    Array.from(allDocsCbs).forEach((cb) => {
+      const title = cb.value || cb.nextElementSibling?.textContent?.trim() || 'item';
+      const key = `docs_${slug(title)}`;
+      object[key] = cb.checked ? 'true' : 'false';
+      if (cb.checked) selectedTitles.push(title);
+    });
+    if (selectedTitles.length) {
+      object.docs_list = selectedTitles.join(', ');
+      selectedTitles.forEach((t, i) => {
+        object[`docs_value_${i + 1}`] = t;
+      });
+    }
+    const json = JSON.stringify(object);
+    result.style.display = '';
+    result.innerHTML = 'Please wait...';
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: json
+    })
+      .then(async (response) => {
+        // Web3Forms returns 200 with { success: true|false }
+        const data = await response.json().catch(() => ({}));
+        if (data && data.success) {
+          result.innerHTML = 'Form submitted successfully';
+        } else {
+          console.log(data);
+          result.innerHTML = (data && data.message) || 'Submission failed';
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        result.innerHTML = 'Something went wrong!';
+      })
+      .then(function() {
+        form.reset();
+        setTimeout(() => {
+          result.style.display = 'none';
+        }, 3000);
+      });
+  });
+})();
