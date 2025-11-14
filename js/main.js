@@ -5,6 +5,7 @@ import { initCopyEmail } from './modules/copy-email.js';
 import { initFormHandler } from './modules/form-handler.js';
 import { initButtonAnimation } from './modules/button-animation.js';
 import { initMobileMenu } from './modules/mobile-menu.js';
+import { initBenefitsToggle } from './modules/benefits-toggle.js';
 
 // Инициализация после загрузки DOM
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,4 +15,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initFormHandler();
   initButtonAnimation();
   initMobileMenu();
+  initBenefitsToggle();
 });

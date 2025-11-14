@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>ЛОЖУР — Работа в такси</title>
   <meta name="description" content="Подключим за 10 минут. Честные условия, выплаты каждую неделю, поддержка 24/7."/>
+  <!-- Prevent FOUC - hide content until CSS loads -->
+  <style>
+    body { visibility: hidden; opacity: 0; }
+    body.css-loaded { visibility: visible; opacity: 1; transition: opacity 0.15s ease-in; }
+  </style>
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +17,14 @@
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Styles -->
-  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/styles.css" onload="document.body.classList.add('css-loaded')" />
+  <noscript><style>body { visibility: visible; opacity: 1; }</style></noscript>
+  <!-- Fallback: show content if CSS takes too long -->
+  <script>
+    setTimeout(function() {
+      document.body.classList.add('css-loaded');
+    }, 500);
+  </script>
 </head>
 <body>
 
@@ -94,24 +106,36 @@
 
           <div class="about__stats">
             <article class="about-card">
+              <div class="about-card__icon">
+                <img src="https://img.icons8.com/3d-fluency/48/243B2D/calendar.png" alt="Calendar" />
+              </div>
               <h3 class="about-card__value">&lt; 3 лет</h3>
               <p class="about-card__note">в сфере перевозок пассажиров</p>
               <span class="about-card__bar" aria-hidden="true"></span>
             </article>
 
             <article class="about-card">
+              <div class="about-card__icon">
+                <img src="https://img.icons8.com/3d-fluency/48/243B2D/group.png" alt="Group" />
+              </div>
               <h3 class="about-card__value">&lt; 40 водителей</h3>
               <p class="about-card__note">в штате</p>
               <span class="about-card__bar" aria-hidden="true"></span>
             </article>
 
             <article class="about-card">
+              <div class="about-card__icon">
+                <img src="https://img.icons8.com/3d-fluency/48/243B2D/taxi.png" alt="Taxi" />
+              </div>
               <h3 class="about-card__value">&lt; 35 машин</h3>
               <p class="about-card__note">собственных и партнёрских</p>
               <span class="about-card__bar" aria-hidden="true"></span>
             </article>
 
             <article class="about-card">
+              <div class="about-card__icon">
+                <img src="https://img.icons8.com/3d-fluency/48/243B2D/maintenance.png" alt="Maintenance" />
+              </div>
               <h3 class="about-card__value">24/7</h3>
               <p class="about-card__note">поддержка водителей</p>
               <span class="about-card__bar" aria-hidden="true"></span>
@@ -121,30 +145,47 @@
       </div>
     </section>
 
-    <!-- Преимущества -->
+        <!-- Преимущества -->
         <section id="benefits" class="benefits">
           <div class="benefits__container">
-            <!-- Для водителей -->
-            <div class="benefits-card benefits-card--drivers">
-              <h2 class="benefits-card__title">Для водителей</h2>
-              <ul class="benefits-list">
-                <li><span class="material-icons icon icon--green">check_circle</span> Официальное трудоустройство и внесение в реестр</li>
-                <li><span class="material-icons icon icon--green">check_circle</span> График работы 2/2</li>
-                <li><span class="material-icons icon icon--green">check_circle</span> Помощь с обучением</li>
-                <li><span class="material-icons icon icon--green">check_circle</span> Стабильный заработок</li>
-                <li><span class="material-icons icon icon--green">check_circle</span> Еженедельные выплаты</li>
-              </ul>
-            </div>
+            <div class="benefits__inner">
+              <!-- Переключатель -->
+              <div class="benefits__toggle">
+                <div class="benefits__toggle-controls">
+                  <span class="benefits__toggle-label active" data-target="drivers">Для водителей</span>
+                  <div class="benefits__toggle-switch active" id="benefitsToggle"></div>
+                  <span class="benefits__toggle-label" data-target="partners">Для партнёров</span>
+                </div>
+                <div class="benefits__toggle-logo">
+                  <img src="assets/logo.svg" alt="ЛОЖУР" />
+                </div>
+              </div>
 
-            <!-- Для партнёров -->
-            <div class="benefits-card benefits-card--partners">
-              <h2 class="benefits-card__title">Для партнёров</h2>
-              <ul class="benefits-list">
-                <li><span class="material-icons icon icon--orange">check_circle</span> Ежемесячные выплаты</li>
-                <li><span class="material-icons icon icon--orange">check_circle</span> Прозрачная отчётность</li>
-                <li><span class="material-icons icon icon--orange">check_circle</span> Всю бухгалтерию берём на себя</li>
-                <li><span class="material-icons icon icon--orange">check_circle</span> Полная подготовка авто и водителя к работе</li>
-              </ul>
+              <!-- Контейнер карточек -->
+              <div class="benefits__cards-wrapper">
+              <!-- Для водителей -->
+              <div class="benefits-card benefits-card--drivers active">
+                <h3 class="benefits-card__title">Предлагаем</h3>
+                  <ul class="benefits-list">
+                    <li><span class="material-icons icon icon--green">check_circle</span> Официальное трудоустройство и внесение в реестр</li>
+                    <li><span class="material-icons icon icon--green">check_circle</span> График работы 2/2</li>
+                    <li><span class="material-icons icon icon--green">check_circle</span> Помощь с обучением</li>
+                    <li><span class="material-icons icon icon--green">check_circle</span> Стабильный заработок</li>
+                    <li><span class="material-icons icon icon--green">check_circle</span> Еженедельные выплаты</li>
+                  </ul>
+                </div>
+
+              <!-- Для партнёров -->
+              <div class="benefits-card benefits-card--partners">
+                <h3 class="benefits-card__title">Предлагаем</h3>
+                  <ul class="benefits-list">
+                    <li><span class="material-icons icon icon--orange">check_circle</span> Ежемесячные выплаты</li>
+                    <li><span class="material-icons icon icon--orange">check_circle</span> Прозрачная отчётность</li>
+                    <li><span class="material-icons icon icon--orange">check_circle</span> Всю бухгалтерию берём на себя</li>
+                    <li><span class="material-icons icon icon--orange">check_circle</span> Полная подготовка авто и водителя к работе</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -240,44 +281,53 @@
           <div class="testimonials__grid">
             <!-- 1 -->
             <article class="testimonial-card">
-              <div class="testimonial-card__image">
-                <img src="assets/driver1.jpg" alt="Алексей, 32 года">
-              </div>
-              <div class="testimonial-card__content">
-                <h3 class="testimonial-card__title">Алексей, 32 года</h3>
-                <p class="testimonial-card__text">
-                  «Подключился без опыта, помогли с документами и объяснили всё по шагам.
-                  Первую неделю уже вышел на линию. Выплаты всегда вовремя, удобно,
-                  что есть поддержка в любое время.»
-                </p>
+              <p class="testimonial-card__text">
+                Подключился без опыта, помогли с документами и объяснили всё по шагам.
+                Первую неделю уже вышел на линию. Выплаты всегда вовремя, удобно,
+                что есть поддержка в любое время.
+              </p>
+              <div class="testimonial-card__author">
+                <div class="testimonial-card__image">
+                  <img src="assets/driver1.jpg" alt="Алексей">
+                </div>
+                <div class="testimonial-card__info">
+                  <h3 class="testimonial-card__title">Алексей</h3>
+                  <p class="testimonial-card__company">32 года</p>
+                </div>
               </div>
             </article>
 
             <!-- 2 -->
             <article class="testimonial-card">
-              <div class="testimonial-card__image">
-                <img src="assets/driver2.jpg" alt="Сергей, 41 год">
-              </div>
-              <div class="testimonial-card__content">
-                <h3 class="testimonial-card__title">Сергей, 41 год</h3>
-                <p class="testimonial-card__text">
-                  «Работаю на арендованной машине от ЛОЖУР. Машина ухоженная, на газу — экономия.
-                  За месяц заработал больше прежнего, график под себя.»
-                </p>
+              <p class="testimonial-card__text">
+                Работаю на арендованной машине от ЛОЖУР. Машина ухоженная, на газу — экономия.
+                За месяц заработал больше прежнего, график под себя.
+              </p>
+              <div class="testimonial-card__author">
+                <div class="testimonial-card__image">
+                  <img src="assets/driver2.jpg" alt="Сергей">
+                </div>
+                <div class="testimonial-card__info">
+                  <h3 class="testimonial-card__title">Сергей</h3>
+                  <p class="testimonial-card__company">41 год</p>
+                </div>
               </div>
             </article>
 
             <!-- 3 -->
             <article class="testimonial-card">
-              <div class="testimonial-card__image">
-                <img src="assets/driver3.jpg" alt="Иван, 27 лет">
-              </div>
-              <div class="testimonial-card__content">
-                <h3 class="testimonial-card__title">Иван, 27 лет</h3>
-                <p class="testimonial-card__text">
-                  «Начинал как подработка. Сейчас езжу почти каждый день.
-                  Условия прозрачные, выплаты стабильно раз в неделю.»
-                </p>
+              <p class="testimonial-card__text">
+                Начинал как подработка. Сейчас езжу почти каждый день.
+                Условия прозрачные, выплаты стабильно раз в неделю.
+              </p>
+              <div class="testimonial-card__author">
+                <div class="testimonial-card__image">
+                  <img src="assets/driver3.jpg" alt="Иван">
+                </div>
+                <div class="testimonial-card__info">
+                  <h3 class="testimonial-card__title">Иван</h3>
+                  <p class="testimonial-card__company">27 лет</p>
+                </div>
               </div>
             </article>
           </div>

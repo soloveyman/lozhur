@@ -42,45 +42,25 @@ body {
   line-height: 1.5;
   color: var(--dark);
   background: #f5f5f5;
-  background-image: 
-    radial-gradient(ellipse 120% 100% at 0% 0%, rgba(255, 255, 255, 0.6) 0%, transparent 50%),
-    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 10% 20%, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
-  background-size: 100% 100%, 100% 100%, 100% 100%;
-  background-position: 0 0, 0 0, 0 0;
-  background-repeat: no-repeat;
   position: relative;
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 25%),
-    linear-gradient(160deg, rgba(255, 255, 255, 0.08) 0%, transparent 30%),
-    linear-gradient(120deg, rgba(255, 255, 255, 0.06) 0%, transparent 35%);
-  pointer-events: none;
-  z-index: 0;
-}
 
 
 /* Заголовки */
 h1 {
   font-family: "Mulish", sans-serif;
   font-weight: 700;
-  font-size: 64px;
+  font-size: 80px;
   line-height: 1.2;
   color: var(--primary);
+  letter-spacing: -0.02em;
 }
 
 h2 {
   font-family: "Mulish", sans-serif;
   font-weight: 700;
-  font-size: 32px;
+  font-size: 48px;
   line-height: 1.3;
   color: var(--primary);
 }
@@ -93,19 +73,6 @@ h3 {
   color: var(--primary);
 }
 
-/* Текстовые стили */
-.body { font-size: 16px; font-weight: 400; }
-.body-big { font-size: 20px; font-weight: 400; }
-.body-small { font-size: 12px; font-weight: 400; }
-
-.container {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 60px;
-}
-.section {
-  padding: 120px 80px;
-}
 
 /* базовые стили */
 .btn {
@@ -189,27 +156,6 @@ h3 {
   color: var(--white);
 }
 
-/* SECONDARY */
-.btn-secondary {
-  padding: 2px 16px 2px 2px;
-  border-radius: 24px;
-  background: var(--light-grey);
-  color: var(--dark);
-  font-size: 16px;
-}
-.btn-secondary .btn-icon {
-  border-radius: 8px;
-  background: var(--secondary);
-  color: var(--white);
-}
-.btn-secondary:hover {
-  background: var(--secondary);
-  color: var(--white);
-}
-.btn-secondary:hover .btn-icon {
-  background: var(--light-grey);
-  color: var(--secondary);
-}
 
 /* Кнопка меню: normal */
 .menu-btn {
@@ -273,15 +219,6 @@ h3 {
 }
 
 
-/* разделитель */
-.nav__divider {
-  display: block;
-  width: 1px;
-  height: 32px;
-  background: var(--darker-grey);
-  opacity: 0.5;
-  margin: 0 4px;
-}
 /* Header — обычный (логотип уезжает при скролле) */
 .header{
   position: absolute;           /* absolute чтобы не занимал место */
@@ -350,12 +287,6 @@ h3 {
   background: #ffffff;
 }
 
-/* Разделитель внутри меню (если есть) */
-.nav__divider{
-  width: 1px; height: 32px;
-  background: var(--darker-grey);
-  opacity: .35; border-radius: 1px;
-}
 
 /* Чтобы контент не уезжал под фикс-меню */
 main{ 
@@ -363,29 +294,7 @@ main{
   margin-top: 0;
   position: relative;
   z-index: 1;
-  background: #fafafa;
-  background-image: 
-    repeating-linear-gradient(
-      135deg,
-      transparent 0px,
-      transparent 40px,
-      rgba(240, 240, 240, 0.6) 40px,
-      rgba(240, 240, 240, 0.6) 42px,
-      transparent 42px,
-      transparent 80px
-    ),
-    repeating-linear-gradient(
-      120deg,
-      transparent 0px,
-      transparent 60px,
-      rgba(245, 245, 245, 0.5) 60px,
-      rgba(245, 245, 245, 0.5) 62px,
-      transparent 62px,
-      transparent 120px
-    ),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.98) 50%, rgba(255, 255, 255, 0.95) 100%);
-  background-size: 200% 200%, 250% 250%, 100% 100%;
-  background-position: 0% 0%, 0% 0%, 0% 0%;
+  background: #f5f5f5;
 }      /* под высоту меню (подгони при желании) */
 
 /* Якоря не прячутся под меню при скролле к секции */
@@ -407,7 +316,7 @@ section[id]{ scroll-margin-top: 72px; }
 
 .hero__container {
   max-width: 1400px;
-  margin: 0 auto;
+  margin: 96px auto 0; /* Верхний margin равен высоте хедера: 24px (padding-top) + 48px (логотип) + 24px (padding-bottom) */
   padding: 160px 80px;
   display: flex;
   align-items: center;
@@ -420,7 +329,7 @@ section[id]{ scroll-margin-top: 72px; }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 32px;
+  gap: 48px;
 }
 
 /* Заголовок с встроенным изображением */
@@ -428,10 +337,10 @@ section[id]{ scroll-margin-top: 72px; }
   margin: 0;
   font-family: "Mulish", sans-serif;
   font-weight: 800;
-  font-size: 96px;
+  font-size: 120px;
   line-height: 1.1;
   color: var(--dark);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -549,7 +458,7 @@ section[id]{ scroll-margin-top: 72px; }
 .hero__eyebrow {
   margin: 0;
   font-family: "Mulish", sans-serif;
-  font-weight: 900;
+  font-weight: 500;
   font-size: 36px;
   line-height: 1;
   color: var(--white);
@@ -590,47 +499,155 @@ section[id]{ scroll-margin-top: 72px; }
 
 /* === BENEFITS SECTION === */
 .benefits {
-  padding: 80px 120px;
-  background: transparent;
+  padding: 120px 120px;
+  background: var(--light-grey);
   position: relative;
   z-index: 1;
 }
 .benefits__container {
   max-width: 1200px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 48px;
-  padding: 40px 0;
+  padding: 0;
 }
 
-/* Карточка */
-.benefits-card {
+.benefits__inner {
+  background: #fafafa;
   border-radius: 24px;
-  padding: 24px 40px;
-  border: 2px solid transparent;
-  background-image: linear-gradient(var(--white), var(--white)),
-    linear-gradient(to right, var(--primary), var(--secondary), var(--primary));
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  transition: background-color 0.3s ease;
+  padding: 48px;
+  display: flex;
+  gap: 48px;
+  align-items: stretch;
 }
-.benefits-card:hover {
-  background-image: linear-gradient(var(--light-grey), var(--light-grey)),
-    linear-gradient(to right, var(--primary), var(--secondary), var(--primary));
+
+/* Переключатель */
+.benefits__toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1;
+}
+
+.benefits__toggle-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.benefits__toggle-logo {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.benefits__toggle-logo img {
+  height: 48px;
+  display: block;
+}
+
+.benefits__toggle-label {
+  font-family: "Mulish", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #999999;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.benefits__toggle-label.active {
+  color: var(--dark);
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.benefits__toggle-switch {
+  position: relative;
+  width: 48px;
+  height: 24px;
+  background: var(--primary);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.benefits__toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: var(--white);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.benefits__toggle-switch.active::after {
+  transform: translateX(0);
+}
+
+.benefits__toggle-switch.active.benefits__toggle-switch--partners::after {
+  transform: translateX(24px);
+}
+
+/* Контейнер карточек */
+.benefits__cards-wrapper {
+  position: relative;
+  height: 360px;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.benefits-card {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  background: var(--white);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.benefits-card.active {
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+  width: 100%;
+  max-width: 100%;
+  pointer-events: auto;
+  z-index: 1;
 }
 
 /* Заголовки */
 .benefits-card__title {
-  margin: 0 0 16px;
-  font-family: "Mulish", sans-serif;
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 1.3;
-  color: var(--primary);
-}
-.benefits-card--partners .benefits-card__title {
-  color: var(--secondary);
+  margin: 0 0 24px !important;
+  font-family: "Mulish", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 32px !important;
+  line-height: 1.2 !important;
+  color: var(--primary) !important;
 }
 
 /* Списки */
@@ -640,56 +657,59 @@ section[id]{ scroll-margin-top: 72px; }
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   font: 400 16px/1.5 "Mulish", sans-serif;
-  color: var(--dark);
+  color: var(--darker-grey);
 }
 .benefits-list li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
 }
 
 /* Иконки */
 .icon {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
 }
 .icon.material-icons,
 .icon .material-icons {
-  font-size: 32px;
+  font-size: 16px;
   line-height: 1;
 }
 .icon--green {
   color: var(--primary);
+  border-color: var(--primary);
 }
 .icon--orange {
-  color: var(--secondary);
+  color: var(--primary);
+  border-color: var(--primary);
 }
 
 /* Адаптив - MOVED TO CONSOLIDATED SECTION */
 
 /* === ABOUT SECTION === */
-/* Внешний контейнер: зелёный фон, большие отступы */
+/* В стиле Denqid - белые карточки с тенями */
 .about__outer{
   background: transparent;
-  padding: 120px 120px;                        /* outer: 120 80 */
+  padding: 120px 120px;
   position: relative;
   z-index: 1;
 }
 .about__inner{
-  max-width: 1200px;                          /* внутр. ширина */
+  max-width: 1200px;
   margin: 0 auto;
-  background: var(--white);                   /* белая капсула */
-  border-radius: 24px;
-  padding: 24px 0;                         /* inner: 24 40 */
   display: flex;
   flex-direction: column;
-  gap: 16px;                                  /* gap между заголовком и карточками */
+  gap: 48px;
 }
 
 /* Заголовок */
@@ -697,48 +717,88 @@ section[id]{ scroll-margin-top: 72px; }
   margin: 0;
   font-family: "Mulish", sans-serif;
   font-weight: 700;
-  font-size: 32px;
-  line-height: 1.25;
-  color: var(--primary);
-  padding: 0 40px;
+  font-size: 48px;
+  line-height: 1.3;
+  color: #000000;
+  text-align: center;
+  letter-spacing: -0.5px;
 }
 
-/* Карточки-статы */
+/* Карточки-статы в стиле Denqid */
 .about__stats{
   display: grid;
-  grid-template-columns: repeat(4, 1fr);      /* 4 колонки */
-  gap: 32px;                                  /* gap между cards 32 */
-  padding: 0 32px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* Волнообразное расположение карточек */
+.about__stats .about-card:nth-child(1),
+.about__stats .about-card:nth-child(3) {
+  margin-top: 20px;
+}
+.about__stats .about-card:nth-child(2),
+.about__stats .about-card:nth-child(4) {
+  margin-top: 0;
 }
 
 .about-card{
-  display: grid;
-  align-content: start;
-  gap: 8px;
-  padding: 16px;                               /* padding 16 */
-  border-radius: 12px;                         /* визуально приятнее на ховере */
-  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 32px 24px;
+  border-radius: 16px;
+  background: var(--white);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  box-sizing: border-box;
 }
+
+.about-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.about-card__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.about-card__icon img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
 .about-card__value{
   margin: 0;
   font-family: "Mulish", sans-serif;
   font-weight: 700;
-  font-size: 24px;
-  line-height: 1.3;
+  font-size: 32px;
+  line-height: 1.2;
   color: var(--primary);
 }
+
 .about-card__note{
   margin: 0;
-  font: 400 12px/1.4 "Mulish", sans-serif;     /* Body small */
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
   color: var(--darker-grey);
+  letter-spacing: 0.2px;
 }
-/* Нижняя полоса 4px */
+
+/* Убираем полосу */
 .about-card__bar{
-  display: block;
-  height: 4px;                                 /* border width 4 */
-  width: 100%;
-  background: var(--primary);
-  border-radius: 2px;
+  display: none;
 }
 
 /* Адаптив - MOVED TO CONSOLIDATED SECTION */
@@ -756,106 +816,166 @@ section[id]{ scroll-margin-top: 72px; }
   margin: 0 auto;
   padding: 0;                   /* по макету нулевые паддинги */
   display: grid;
-  gap: 32px;                    /* расстояние заголовок ↔ грид */
+  gap: 64px;                    /* расстояние заголовок ↔ грид */
 }
 
 .testimonials__title{
   margin: 0;
   font-family: "Mulish", sans-serif;
   font-weight: 700;
-  font-size: 32px;
-  line-height: 1.25;
-  color: var(--primary);
+  font-size: 48px;
+  line-height: 1.3;
+  color: #000000;
+  text-align: center;
+  letter-spacing: -0.5px;
 }
 
 /* сетка карточек */
 .testimonials__grid{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;                    /* между карточками */
+  display: flex;
+  gap: 0;
+  position: relative;
+}
+
+.testimonials__grid > .testimonial-card {
+  flex: 1;
+}
+
+.testimonials__grid > .testimonial-card:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -24px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.testimonials__grid > .testimonial-card:nth-child(1),
+.testimonials__grid > .testimonial-card:nth-child(2) {
+  padding-right: 48px;
+  margin-right: 48px;
 }
 
 /* карточка */
 .testimonial-card{
-  background: var(--white);
-  border-radius: 16px;
-  padding: 24px;
+  background: transparent;
+  border-radius: 0;
+  padding: 32px 0;
+  box-shadow: none;
+  position: relative;
   display: flex;
-  align-items: flex-start;
-  gap: 16px;                    /* внутри карточки */
-  box-shadow: 0 2px 6px rgba(0,0,0,.05);
+  flex-direction: column;
+  gap: 24px;
+}
+
+.testimonial-card__text{
+  margin: 0 !important;
+  font-family: "Mulish", sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+  color: var(--dark) !important;
+  position: relative;
+  padding-right: 40px !important;
+}
+
+.testimonial-card__text::after {
+  content: '"';
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 48px;
+  font-weight: 400;
+  color: var(--secondary);
+  line-height: 1;
+  font-family: "Mulish", sans-serif;
+}
+
+.testimonial-card__author {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .testimonial-card__image{
   flex-shrink: 0;
-  width: 64px; height: 64px;
+  width: 56px; 
+  height: 56px;
   border-radius: 50%;
   overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 .testimonial-card__image img{
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover;
+}
+
+.testimonial-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .testimonial-card__title{
-  margin: 0 0 8px;
-  font-family: "Mulish", sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--primary);
-}
-.testimonial-card__text{
   margin: 0;
-  font: 400 16px/1.5 "Mulish", sans-serif; /* body */
+  font-family: "Mulish", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
   color: var(--dark);
+  line-height: 1.3;
+}
+
+.testimonial-card__company {
+  margin: 0;
+  font-family: "Mulish", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--darker-grey);
+  line-height: 1.4;
 }
 
 /* адаптив - MOVED TO CONSOLIDATED SECTION */
 
 /* OUTER контейнер: padding 80 120, прозрачный фон */
-/* контейнеры */
 .faq__outer{ 
   padding:80px 120px; 
   background:transparent; 
   position: relative;
   z-index: 1;
 }
-.faq__inner{ max-width:1200px; margin:0 auto; padding:0; display:grid; gap:24px; }
-
-/* тянем каждый item на всю ширину сетки секции */
-.faq__inner { 
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0;
-  display: flex;          /* вместо grid, чтобы items растягивались на 100% */
-  flex-direction: column;
-  gap: 24px;
-}
-
-/* Контейнер секции */
 .faq__inner{
-  max-width:1200px; margin:0 auto; padding:0;
-  display:flex; flex-direction:column; gap:24px;
+  max-width:1200px; 
+  margin:0 auto; 
+  padding:0;
+  display:flex; 
+  flex-direction:column; 
+  gap:24px;
 }
 
 /* Элемент */
 .accordion__item{
-  width:100%; position:relative; border-radius:8px;
-  overflow:hidden; /* чтобы градиент/углы не вылазили */
+  width:100%; position:relative; border-radius:0;
+  overflow:hidden;
+  background: transparent;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 /* Шапка (закрыто) */
 .accordion__header{
   position:relative; width:100%; display:block;
-  padding:16px 60px 16px 16px;               /* место под кнопку справа */
-  border:.5px solid var(--dark);             /* бордер у закрытого */
-  border-radius:8px;
+  padding:20px 60px 20px 20px;
+  border:none;
+  border-radius:0;
   background:transparent;
-  background-clip: padding-box;              /* не перекрывать бордер */
-  box-sizing:border-box;                     /* чтобы бордер не "съедался" */
+  background-clip: padding-box;
+  box-sizing:border-box;
   cursor:pointer; text-align:left; z-index:1;
 }
 .accordion__item:not(.open) .accordion__header:hover{
-  background:var(--light-grey);
+  background:transparent;
 }
 
 /* Вопрос */
@@ -865,11 +985,15 @@ section[id]{ scroll-margin-top: 72px; }
 
 /* Кнопка-иконка: ВСЕГДА в правом верхнем углу */
 .accordion__icon{
-  position:absolute; top:12px; right:12px;
-  width:36px; height:36px; display:inline-flex;
+  position:absolute; top:16px; right:16px;
+  width:32px; height:32px; display:inline-flex;
   align-items:center; justify-content:center;
-  border-radius:8px; background:#fff; border:.5px solid #fff;
-  color:var(--dark); z-index:2;
+  border-radius:4px; background:transparent; border:none;
+  color:var(--secondary); z-index:2;
+  transition: transform 0.3s ease;
+}
+.accordion__icon:hover {
+  transform: scale(1.1);
 }
 .accordion__icon .icon--up{ display:none; }
 .accordion__icon .material-icons{
@@ -884,9 +1008,9 @@ section[id]{ scroll-margin-top: 72px; }
   max-height: 0;
   opacity: 0;
   overflow: hidden;
-  padding: 0 16px;
+  padding: 0 20px;
   background:transparent; border:none;
-  color:var(--dark); font:400 16px/1.5 "Mulish",sans-serif;
+  color:var(--darker-grey); font:400 16px/1.6 "Mulish",sans-serif;
   transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
               opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
               padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -894,16 +1018,18 @@ section[id]{ scroll-margin-top: 72px; }
 
 /* ОТКРЫТО */
 .accordion__item.open{
-  border:.5px solid var(--dark); border-radius:8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius:0;
 }
 /* у шапки убираем локальный бордер и уменьшаем зазор */
 .accordion__item.open .accordion__header{
-  border:none; border-radius:8px 8px 0 0; background:transparent; padding-bottom:8px;
+  border:none; border-radius:0; background:transparent; padding-bottom:12px;
 }
 .accordion__item.open .accordion__panel{
   max-height: 1000px;
   opacity: 1;
-  padding: 8px 16px 16px 16px;
+  padding: 0 20px 20px 20px;
 }
 
 /* Анимация иконок */
@@ -1042,11 +1168,6 @@ section[id]{ scroll-margin-top: 72px; }
   gap: 16px;
 }
 
-.lead__subtitle{
-  font: 400 12px/1.25 "Mulish", sans-serif;
-  color: var(--primary);
-  margin: 24px 0 12px;
-}
 
 /* ===== Inputs states ===== */
 .form-field {
@@ -1275,13 +1396,8 @@ section[id]{ scroll-margin-top: 72px; }
 
 /* === MOBILE (up to 480px) === */
 @media (max-width: 480px) {
-  /* Container adjustments */
-  .container {
-    padding: 0 var(--padding-mobile);
-  }
-  
   /* Typography adjustments */
-  h1 { font-size: 32px; }
+  h1 { font-size: 40px; }
   h2 { font-size: 24px; }
   h3 { font-size: 20px; }
   
@@ -1348,13 +1464,14 @@ section[id]{ scroll-margin-top: 72px; }
   
   /* Hero mobile */
   .hero__container { 
+    margin-top: 68px; /* Высота хедера на мобильной: 16px + 36px + 16px */
     padding: 80px var(--padding-mobile); 
   }
   .hero__content { 
     gap: 24px; 
   }
   .hero__title { 
-    font-size: 42px; 
+    font-size: 52px; 
     gap: 16px;
     flex-direction: column;
     align-items: center;
@@ -1379,18 +1496,56 @@ section[id]{ scroll-margin-top: 72px; }
   }
   
   /* Benefits mobile */
-  .benefits { padding: 0 var(--padding-mobile); }
+  .benefits { padding: 60px var(--padding-mobile); }
   .benefits__container { 
-    grid-template-columns: 1fr; 
-    gap: var(--spacing-md);
+    gap: 32px;
   }
-  .benefits-card {padding: 16px 16px 32px 16px;}
+  .benefits__toggle {
+    gap: 12px;
+  }
+  .benefits__toggle-controls {
+    gap: 12px;
+  }
+  .benefits__toggle-logo {
+    padding-top: 16px;
+  }
+  .benefits__toggle-logo img {
+    height: 36px;
+  }
+  .benefits__toggle-label {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .benefits__toggle-label.active {
+    font-weight: 700;
+  }
+  .benefits__toggle-switch {
+    width: 40px;
+    height: 20px;
+  }
+  .benefits__toggle-switch::after {
+    width: 16px;
+    height: 16px;
+  }
+  .benefits__toggle-switch.active::after {
+    transform: translateX(0);
+  }
+  .benefits__toggle-switch.active.benefits__toggle-switch--partners::after {
+    transform: translateX(20px);
+  }
+  .benefits__cards-wrapper {
+    height: 360px;
+  }
+  .benefits__inner {
+    padding: 32px 24px;
+    flex-direction: column;
+    gap: 32px;
+  }
   
   /* About mobile */
   .about__outer { padding: 60px var(--padding-mobile); }
-  .about__inner { padding: 20px var(--padding-mobile); }
   .about__title{
-    padding: 8px;
+    font-size: 32px;
   }
   .about__stats { 
     grid-template-columns: 1fr; 
@@ -1400,7 +1555,6 @@ section[id]{ scroll-margin-top: 72px; }
   
   /* Testimonials mobile */
   .testimonials__outer { padding: 60px var(--padding-mobile); }
-  .testimonials__grid { grid-template-columns: 1fr; }
   
   /* FAQ mobile */
   .faq__outer { padding: 60px var(--padding-mobile); }
@@ -1426,11 +1580,6 @@ section[id]{ scroll-margin-top: 72px; }
 
 /* === TABLET (481px to 768px) === */
 @media (min-width: 481px) and (max-width: 768px) {
-  /* Container adjustments */
-  .container {
-    padding: 0 var(--padding-tablet);
-  }
-  
   /* Utility classes activation */
   .hide-tablet { display: none !important; }
   .show-tablet { display: block !important; }
@@ -1454,10 +1603,11 @@ section[id]{ scroll-margin-top: 72px; }
   
   /* Hero tablet */
   .hero__container { 
+    margin-top: 88px; /* Высота хедера на планшете: 20px + 48px + 20px */
     padding: 100px var(--padding-tablet);
   }
   .hero__title { 
-    font-size: 64px; 
+    font-size: 80px; 
     gap: 20px;
   }
   .hero__image--floating {
@@ -1473,8 +1623,7 @@ section[id]{ scroll-margin-top: 72px; }
   /* Benefits tablet */
   .benefits { padding: 80px var(--padding-tablet); }
   .benefits__container { 
-    grid-template-columns: 1fr; 
-    gap: var(--spacing-lg);
+    gap: 48px;
   }
   
   /* About tablet */
@@ -1486,7 +1635,6 @@ section[id]{ scroll-margin-top: 72px; }
   
   /* Testimonials tablet */
   .testimonials__outer { padding: 80px var(--padding-tablet); }
-  .testimonials__grid { grid-template-columns: 1fr 1fr; }
   
   /* FAQ tablet */
   .faq__outer { padding: 80px var(--padding-tablet); }
@@ -1517,13 +1665,10 @@ section[id]{ scroll-margin-top: 72px; }
   }
   
   /* Hero desktop */
-  .hero__title { font-size: 48px; }
+  .hero__title { font-size: 60px; }
   
   /* About desktop */
   .about__stats { grid-template-columns: repeat(2, 1fr); }
-  
-  /* Testimonials desktop */
-  .testimonials__grid { grid-template-columns: 1fr 1fr; }
 }
 
 /* === LARGE SCREENS (1025px and up) === */
