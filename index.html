@@ -7,24 +7,60 @@
   <meta name="description" content="Подключим за 10 минут. Честные условия, выплаты каждую неделю, поддержка 24/7."/>
   <!-- Prevent FOUC - hide content until CSS loads -->
   <style>
-    body { visibility: hidden; opacity: 0; }
-    body.css-loaded { visibility: visible; opacity: 1; transition: opacity 0.15s ease-in; }
+    html { visibility: hidden; opacity: 0; }
+    html.css-loaded { visibility: visible; opacity: 1; transition: opacity 0.2s ease-in; }
+    /* Hide hero car image until CSS loads */
+    .hero__image--floating img { opacity: 0 !important; visibility: hidden !important; }
+    .hero__image--floating img.loaded { opacity: 1 !important; visibility: visible !important; }
   </style>
+  <!-- Preload critical images -->
+  <link rel="preload" href="assets/hero-car.png" as="image">
+  <!-- Critical CSS - блокирующая загрузка с версионированием для сброса кеша -->
+  <link rel="stylesheet" href="css/styles.css?v=2">
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Ysabeau+Infant:wght@800&display=swap" rel="stylesheet">
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!-- Styles -->
-  <link rel="stylesheet" href="css/styles.css" onload="document.body.classList.add('css-loaded')" />
-  <noscript><style>body { visibility: visible; opacity: 1; }</style></noscript>
-  <!-- Fallback: show content if CSS takes too long -->
+  <!-- Mark CSS as loaded immediately after stylesheet loads -->
   <script>
-    setTimeout(function() {
-      document.body.classList.add('css-loaded');
-    }, 500);
+    (function() {
+      // CSS уже загружен (блокирующая загрузка) или из кеша
+      function showContent() {
+        document.documentElement.classList.add('css-loaded');
+      }
+      // Проверяем, загружено ли изображение автомобиля из кеша
+      function showHeroImage() {
+        var img = document.querySelector('.hero__image--floating img');
+        var container = document.querySelector('.hero__image--floating');
+        if (img) {
+          img.classList.add('loaded');
+          if (container) {
+            container.style.opacity = '1';
+            container.style.visibility = 'visible';
+          }
+        }
+      }
+      var heroCarImg = new Image();
+      heroCarImg.onload = showHeroImage;
+      heroCarImg.src = 'assets/hero-car.png';
+      // Если изображение уже загружено (кеш)
+      if (heroCarImg.complete) {
+        setTimeout(showHeroImage, 0);
+      }
+      // Если документ уже загружен (кеш)
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        setTimeout(showContent, 0);
+      } else {
+        // Ждем загрузки всех ресурсов
+        window.addEventListener('load', showContent);
+        // Fallback на случай долгой загрузки
+        setTimeout(showContent, 200);
+      }
+    })();
   </script>
+  <noscript><style>html { visibility: visible; opacity: 1; }</style></noscript>
 </head>
 <body>
 
@@ -68,8 +104,8 @@
           <h1 class="hero__title">
             <div class="hero__title-line">
               <span class="hero__title-word">Подключайся</span>
-              <div class="hero__image hero__image--floating">
-                <img src="assets/hero-car.png" alt="Жёлтое такси — работа в ЛОЖУР">
+              <div class="hero__image hero__image--floating" style="opacity: 0; visibility: hidden;">
+                <img src="assets/hero-car.png" alt="Жёлтое такси — работа в ЛОЖУР" onload="this.classList.add('loaded'); this.parentElement.style.opacity='1'; this.parentElement.style.visibility='visible';">
               </div>
               <span class="hero__title-word">и</span>
             </div>
@@ -167,11 +203,11 @@
               <div class="benefits-card benefits-card--drivers active">
                 <h3 class="benefits-card__title">Предлагаем</h3>
                   <ul class="benefits-list">
-                    <li><span class="material-icons icon icon--green">check_circle</span> Официальное трудоустройство и внесение в реестр</li>
-                    <li><span class="material-icons icon icon--green">check_circle</span> График работы 2/2</li>
-                    <li><span class="material-icons icon icon--green">check_circle</span> Помощь с обучением</li>
-                    <li><span class="material-icons icon icon--green">check_circle</span> Стабильный заработок</li>
-                    <li><span class="material-icons icon icon--green">check_circle</span> Еженедельные выплаты</li>
+                    <li><span class="material-icons icon icon--green">add_circle_outline</span> Официальное трудоустройство и внесение в реестр</li>
+                    <li><span class="material-icons icon icon--green">add_circle_outline</span> График работы 2/2</li>
+                    <li><span class="material-icons icon icon--green">add_circle_outline</span> Помощь с обучением</li>
+                    <li><span class="material-icons icon icon--green">add_circle_outline</span> Стабильный заработок</li>
+                    <li><span class="material-icons icon icon--green">add_circle_outline</span> Еженедельные выплаты</li>
                   </ul>
                 </div>
 
@@ -179,10 +215,10 @@
               <div class="benefits-card benefits-card--partners">
                 <h3 class="benefits-card__title">Предлагаем</h3>
                   <ul class="benefits-list">
-                    <li><span class="material-icons icon icon--orange">check_circle</span> Ежемесячные выплаты</li>
-                    <li><span class="material-icons icon icon--orange">check_circle</span> Прозрачная отчётность</li>
-                    <li><span class="material-icons icon icon--orange">check_circle</span> Всю бухгалтерию берём на себя</li>
-                    <li><span class="material-icons icon icon--orange">check_circle</span> Полная подготовка авто и водителя к работе</li>
+                    <li><span class="material-icons icon icon--orange">add_circle_outline</span> Ежемесячные выплаты</li>
+                    <li><span class="material-icons icon icon--orange">add_circle_outline</span> Прозрачная отчётность</li>
+                    <li><span class="material-icons icon icon--orange">add_circle_outline</span> Всю бухгалтерию берём на себя</li>
+                    <li><span class="material-icons icon icon--orange">add_circle_outline</span> Полная подготовка авто и водителя к работе</li>
                   </ul>
                 </div>
               </div>

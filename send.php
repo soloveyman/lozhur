@@ -66,7 +66,7 @@ if (!empty($errors)) {
 }
 
 // Configure recipient
-$to = 'lojour.pinsk@yandex.by'; // TODO: set your destination email
+$to = 'lojour.pinsk@yandex.by';
 
 // Compose email
 $subject = 'New form submission from site';

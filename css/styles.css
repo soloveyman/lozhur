@@ -38,39 +38,56 @@
 body {
   font-family: "Mulish", sans-serif;
   font-weight: 400;
-  font-size: 16px;       /* Body */
+  font-size: 16px;
   line-height: 1.5;
   color: var(--dark);
   background: #f5f5f5;
   position: relative;
 }
 
-
-
-/* Заголовки */
-h1 {
+/* Базовые стили текста */
+h1, h1 * {
   font-family: "Mulish", sans-serif;
   font-weight: 700;
-  font-size: 80px;
+  font-size: 100px;
   line-height: 1.2;
-  color: var(--primary);
-  letter-spacing: -0.02em;
+  color: var(--dark);
+  letter-spacing: -0.05em;
+  margin: 0;
 }
 
-h2 {
+h2, h2 * {
   font-family: "Mulish", sans-serif;
   font-weight: 700;
   font-size: 48px;
   line-height: 1.3;
   color: var(--primary);
+  margin: 0;
 }
 
-h3 {
+h3, h3 * {
   font-family: "Mulish", sans-serif;
   font-weight: 700;
   font-size: 24px;
   line-height: 1.3;
   color: var(--primary);
+  margin: 0;
+}
+
+p, p * {
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--dark);
+  margin: 0;
+}
+
+button, button * {
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 
@@ -119,7 +136,7 @@ h3 {
   font-weight: 500;
   border: none;
   background: var(--secondary);
-  box-shadow: 0 2px 8px rgba(245, 59, 16, 0.3);
+  box-shadow: rgba(255, 255, 255, 0.25) 0px 0px 0px 8px, rgba(0, 0, 0, 0.1) 12px 16px 16px 0px;
   position: relative;
   transition: all 0.3s ease;
   height: auto;
@@ -146,15 +163,6 @@ h3 {
   object-fit: contain;
   display: block;
 }
-.btn-primary:hover {
-  background: var(--secondary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(245, 59, 16, 0.4);
-}
-.btn-primary:hover .btn-icon {
-  background: transparent;
-  color: var(--white);
-}
 
 
 /* Кнопка меню: normal */
@@ -169,7 +177,7 @@ h3 {
   background: transparent;          /* без фона */
   color: var(--dark);
   font: 400 16px/1.2 "Mulish", sans-serif; /* Body */
-  transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease, border-radius .2s ease;
   white-space: nowrap;
   border: none;
 }
@@ -189,6 +197,7 @@ h3 {
 .menu-btn:hover {
   background: var(--grey);      /* Серый */
   color: var(--dark);            /* темный текст */
+  border-radius: 999px;         /* полностью скругленный */
 }
 /* Иконка стрелки на кнопке "Контакты" не меняет цвет при hover */
 .menu-btn:not([href="#contacts"]):hover .menu-btn__icon .material-icons {
@@ -294,16 +303,13 @@ main{
   margin-top: 0;
   position: relative;
   z-index: 1;
-  background: #f5f5f5;
-}      /* под высоту меню (подгони при желании) */
+  background: #e8e8e8;
+}
 
 /* Якоря не прячутся под меню при скролле к секции */
 section[id]{ scroll-margin-top: 72px; }
 
-/* Адаптив: при узком экране притягиваем меню к краям - MOVED TO CONSOLIDATED SECTION */
-
-
-/* === HERO SECTION === в стиле Denqid */
+/* === HERO SECTION === */
 .hero {
   width: 100%;
   background: transparent;
@@ -335,12 +341,11 @@ section[id]{ scroll-margin-top: 72px; }
 /* Заголовок с встроенным изображением */
 .hero__title {
   margin: 0;
-  font-family: "Mulish", sans-serif;
+  font-size: 150px;
   font-weight: 800;
-  font-size: 120px;
   line-height: 1.1;
   color: var(--dark);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.06em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -374,10 +379,10 @@ section[id]{ scroll-margin-top: 72px; }
   border: 3px solid transparent;
   background-image: 
     linear-gradient(var(--white), var(--white)),
-    linear-gradient(135deg, var(--primary) 0%, #4a6b55 50%, #6b8a75 100%);
+    linear-gradient(135deg, #111111 0%, #424242 100%);
   background-origin: border-box;
   background-clip: padding-box, border-box;
-  box-shadow: 0 12px 48px rgba(36, 59, 45, 0.3), 0 4px 16px rgba(36, 59, 45, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(255, 255, 255, 0.25) 0px 0px 0px 8px, rgba(0, 0, 0, 0.1) 12px 16px 16px 0px;
   overflow: hidden;
   position: relative;
   flex-shrink: 0;
@@ -386,19 +391,19 @@ section[id]{ scroll-margin-top: 72px; }
   box-sizing: border-box;
 }
 
-.hero__image--floating:hover {
-  background-image: 
-    linear-gradient(var(--white), var(--white)),
-    linear-gradient(135deg, var(--primary) 0%, #4a6b55 50%, #6b8a75 100%);
-  transform: rotate(5deg) translateY(-4px) scale(1.02);
-  box-shadow: 0 16px 56px rgba(36, 59, 45, 0.4), 0 8px 24px rgba(36, 59, 45, 0.25), 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
 .hero__image--floating img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  will-change: opacity;
+  backface-visibility: hidden;
+}
+.hero__image--floating img.loaded,
+.hero__image--floating img[complete] {
+  opacity: 1;
 }
 
 /* Прямоугольник для eyebrow */
@@ -413,15 +418,10 @@ section[id]{ scroll-margin-top: 72px; }
   border: 3px solid transparent;
   background-image: 
     linear-gradient(135deg, #243B2D 0%, #1a2d20 50%, #0f1a14 100%),
-    linear-gradient(135deg, var(--primary) 0%, #4a6b55 50%, #6b8a75 100%);
+    linear-gradient(135deg, #111111 0%, #424242 100%);
   background-origin: border-box;
   background-clip: padding-box, border-box;
-  box-shadow: 
-    0 12px 48px rgba(36, 59, 45, 0.3), 
-    0 4px 16px rgba(36, 59, 45, 0.2), 
-    0 2px 8px rgba(0, 0, 0, 0.1),
-    inset 0 2px 4px rgba(255, 255, 255, 0.1),
-    inset 0 -2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: rgba(255, 255, 255, 0.25) 0px 0px 0px 8px, rgba(0, 0, 0, 0.1) 12px 16px 16px 0px;
   overflow: hidden;
   position: relative;
   flex-shrink: 0;
@@ -440,19 +440,9 @@ section[id]{ scroll-margin-top: 72px; }
   padding: 16px;
   box-sizing: border-box;
   animation: scroll-text 6s linear infinite;
-}
-
-.hero__eyebrow-box:hover {
-  background-image: 
-    linear-gradient(135deg, #243B2D 0%, #1a2d20 50%, #0f1a14 100%),
-    linear-gradient(135deg, var(--primary) 0%, #4a6b55 50%, #6b8a75 100%);
-  transform: rotate(3deg) translateY(-4px) scale(1.02);
-  box-shadow: 
-    0 16px 56px rgba(36, 59, 45, 0.4), 
-    0 8px 24px rgba(36, 59, 45, 0.25), 
-    0 4px 12px rgba(0, 0, 0, 0.15),
-    inset 0 2px 4px rgba(255, 255, 255, 0.15),
-    inset 0 -2px 8px rgba(0, 0, 0, 0.4);
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .hero__eyebrow {
@@ -491,16 +481,14 @@ section[id]{ scroll-margin-top: 72px; }
 .hero__bullets {
   margin: 0 0 24px 0;
   text-align: center;
-  font: 400 20px/1.5 "Mulish", sans-serif;
+  font-size: 20px;
   color: var(--darker-grey);
 }
-
-/* АДАПТИВ - MOVED TO CONSOLIDATED SECTION */
 
 /* === BENEFITS SECTION === */
 .benefits {
   padding: 120px 120px;
-  background: var(--light-grey);
+  background: transparent;
   position: relative;
   z-index: 1;
 }
@@ -514,12 +502,13 @@ section[id]{ scroll-margin-top: 72px; }
 }
 
 .benefits__inner {
-  background: #fafafa;
+  background: #f5f5f5;
   border-radius: 24px;
   padding: 48px;
   display: flex;
   gap: 48px;
   align-items: stretch;
+  box-shadow: rgba(255, 255, 255, 0.25) 0px 0px 0px 8px, rgba(0, 0, 0, 0.1) 12px 16px 16px 0px;
 }
 
 /* Переключатель */
@@ -565,7 +554,10 @@ section[id]{ scroll-margin-top: 72px; }
 
 .benefits__toggle-label.active {
   color: var(--dark);
+  font-family: "Mulish", sans-serif;
   font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -628,6 +620,7 @@ section[id]{ scroll-margin-top: 72px; }
   display: flex;
   flex-direction: column;
   pointer-events: none;
+  transform: rotate(3deg);
 }
 
 .benefits-card.active {
@@ -642,12 +635,9 @@ section[id]{ scroll-margin-top: 72px; }
 
 /* Заголовки */
 .benefits-card__title {
-  margin: 0 0 24px !important;
-  font-family: "Mulish", sans-serif !important;
-  font-weight: 700 !important;
-  font-size: 32px !important;
-  line-height: 1.2 !important;
-  color: var(--primary) !important;
+  margin: 0 0 24px;
+  font-size: 32px;
+  color: var(--primary);
 }
 
 /* Списки */
@@ -675,29 +665,23 @@ section[id]{ scroll-margin-top: 72px; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
   background: transparent;
-  border: 1px solid var(--primary);
+  border: none;
   color: var(--primary);
 }
 .icon.material-icons,
 .icon .material-icons {
-  font-size: 16px;
+  font-size: 24px;
   line-height: 1;
 }
 .icon--green {
   color: var(--primary);
-  border-color: var(--primary);
 }
 .icon--orange {
   color: var(--primary);
-  border-color: var(--primary);
 }
 
-/* Адаптив - MOVED TO CONSOLIDATED SECTION */
-
 /* === ABOUT SECTION === */
-/* В стиле Denqid - белые карточки с тенями */
 .about__outer{
   background: transparent;
   padding: 120px 120px;
@@ -715,16 +699,11 @@ section[id]{ scroll-margin-top: 72px; }
 /* Заголовок */
 .about__title{
   margin: 0;
-  font-family: "Mulish", sans-serif;
-  font-weight: 700;
-  font-size: 48px;
-  line-height: 1.3;
-  color: #000000;
   text-align: center;
   letter-spacing: -0.5px;
+  color: #000000;
 }
 
-/* Карточки-статы в стиле Denqid */
 .about__stats{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -745,19 +724,14 @@ section[id]{ scroll-margin-top: 72px; }
 .about-card{
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
   padding: 32px 24px;
   border-radius: 16px;
   background: var(--white);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: rgba(255, 255, 255, 0.25) 0px 0px 0px 8px, rgba(0, 0, 0, 0.1) 12px 16px 16px 0px;
+  transition: transform 0.3s ease;
   height: 100%;
   box-sizing: border-box;
-}
-
-.about-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
 
 .about-card__icon {
@@ -766,7 +740,7 @@ section[id]{ scroll-margin-top: 72px; }
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   color: var(--primary);
   flex-shrink: 0;
 }
@@ -801,8 +775,6 @@ section[id]{ scroll-margin-top: 72px; }
   display: none;
 }
 
-/* Адаптив - MOVED TO CONSOLIDATED SECTION */
-
 /* === TESTIMONIALS SECTION === */
 .testimonials__outer{
   padding: 120px 120px;          /* outer: 120 80 */
@@ -821,10 +793,6 @@ section[id]{ scroll-margin-top: 72px; }
 
 .testimonials__title{
   margin: 0;
-  font-family: "Mulish", sans-serif;
-  font-weight: 700;
-  font-size: 48px;
-  line-height: 1.3;
   color: #000000;
   text-align: center;
   letter-spacing: -0.5px;
@@ -870,12 +838,10 @@ section[id]{ scroll-margin-top: 72px; }
 }
 
 .testimonial-card__text{
-  margin: 0 !important;
-  font-family: "Mulish", sans-serif !important;
-  font-weight: 400 !important;
-  font-size: 18px !important;
-  line-height: 1.6 !important;
-  color: var(--dark) !important;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--dark);
   position: relative;
   padding-right: 40px !important;
 }
@@ -936,8 +902,6 @@ section[id]{ scroll-margin-top: 72px; }
   line-height: 1.4;
 }
 
-/* адаптив - MOVED TO CONSOLIDATED SECTION */
-
 /* OUTER контейнер: padding 80 120, прозрачный фон */
 .faq__outer{ 
   padding:80px 120px; 
@@ -980,7 +944,11 @@ section[id]{ scroll-margin-top: 72px; }
 
 /* Вопрос */
 .accordion__q{
-  margin:0; font:600 20px/1.3 "Mulish",sans-serif; color:var(--dark);
+  margin:0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--dark);
 }
 
 /* Кнопка-иконка: ВСЕГДА в правом верхнем углу */
@@ -1057,8 +1025,6 @@ section[id]{ scroll-margin-top: 72px; }
   outline:2px solid rgba(36,59,45,.35); outline-offset:2px;
 }
 
-/* адаптив - MOVED TO CONSOLIDATED SECTION */
-
 /* OUTER / INNER по макету */
 .contacts__outer{ 
   padding:80px 120px; 
@@ -1109,12 +1075,10 @@ section[id]{ scroll-margin-top: 72px; }
   width:100%; height:100%; min-height:320px; border:0; border-radius:0;
 }
 
-/* Адаптив - MOVED TO CONSOLIDATED SECTION */
-
 .footer__outer {
-  background: transparent;
+  background: #333333;
   padding: 40px 120px;
-  color: var(--dark);
+  color: var(--white);
   position: relative;
   z-index: 1;
 }
@@ -1134,7 +1098,7 @@ section[id]{ scroll-margin-top: 72px; }
 }
 
 .footer__nav a {
-  color: var(--dark);
+  color: var(--white);
   text-decoration: none;
   font: var(--body);
   transition: opacity 0.2s;
@@ -1146,7 +1110,7 @@ section[id]{ scroll-margin-top: 72px; }
 
 .footer__copy {
   font: var(--body);
-  color: var(--dark);
+  color: var(--white);
   opacity: 0.6;
   text-align: center;
 }
@@ -1275,7 +1239,6 @@ section[id]{ scroll-margin-top: 72px; }
 .lead__actions .btn-primary{
   background: var(--secondary); color:#fff;
 }
-.lead__actions .btn-primary:hover{ filter: brightness(.98); }
 .lead__actions .btn-primary:active{ transform: translateY(1px); }
 .lead__actions .btn-icon{ display:inline-flex; width: 24px; height: 24px; align-items:center; justify-content:center; }
 
@@ -1471,7 +1434,7 @@ section[id]{ scroll-margin-top: 72px; }
     gap: 24px; 
   }
   .hero__title { 
-    font-size: 52px; 
+    font-size: 64px; 
     gap: 16px;
     flex-direction: column;
     align-items: center;
@@ -1515,9 +1478,20 @@ section[id]{ scroll-margin-top: 72px; }
   .benefits__toggle-label {
     font-size: 14px;
     font-weight: 700;
+    font-family: "Mulish", sans-serif;
+    line-height: 1.2;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   .benefits__toggle-label.active {
+    font-size: 14px;
     font-weight: 700;
+    font-family: "Mulish", sans-serif;
+    line-height: 1.2;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   .benefits__toggle-switch {
     width: 40px;
@@ -1607,7 +1581,7 @@ section[id]{ scroll-margin-top: 72px; }
     padding: 100px var(--padding-tablet);
   }
   .hero__title { 
-    font-size: 80px; 
+    font-size: 100px; 
     gap: 20px;
   }
   .hero__image--floating {
@@ -1665,7 +1639,7 @@ section[id]{ scroll-margin-top: 72px; }
   }
   
   /* Hero desktop */
-  .hero__title { font-size: 60px; }
+  .hero__title { font-size: 80px; }
   
   /* About desktop */
   .about__stats { grid-template-columns: repeat(2, 1fr); }
@@ -1692,41 +1666,3 @@ section[id]{ scroll-margin-top: 72px; }
     width: auto;
   }
 }
-
-/*
-  ========================================
-  QUICK REFERENCE FOR MOBILE OPTIMIZATION
-  ========================================
-  
-  TO CHANGE MOBILE BREAKPOINTS:
-  1. Edit the --bp-mobile, --bp-tablet, --bp-desktop variables in :root
-  2. All media queries will automatically update
-  
-  TO ADD NEW MOBILE STYLES:
-  1. Find the appropriate breakpoint section above
-  2. Add your styles within the existing @media block
-  
-  TO CREATE NEW UTILITY CLASSES:
-  1. Add base class in the utility section (around line 950)
-  2. Add responsive behavior in each breakpoint section
-  
-  EXAMPLE - Adding a new responsive font size:
-  
-  // 1. Add utility class:
-  .text-large-mobile { font-size: 18px; }
-  
-  // 2. Add to mobile breakpoint:
-  @media (max-width: 480px) {
-    .text-large-mobile { font-size: 24px !important; }
-  }
-  
-  COMMON MOBILE PATTERNS:
-  - Stack columns: grid-template-columns: 1fr;
-  - Reduce padding: padding: var(--padding-mobile);
-  - Hide elements: display: none !important;
-  - Center text: text-align: center !important;
-  - Smaller fonts: font-size: [smaller value];
-*/
-
-
-
