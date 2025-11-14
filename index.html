@@ -20,7 +20,7 @@
   <link rel="preload" href="assets/hero-car.png" as="image">
   <link rel="preload" href="assets/logo.svg" as="image">
   <!-- Critical CSS - блокирующая загрузка с версионированием для сброса кеша -->
-  <link rel="stylesheet" href="css/styles.css?v=2">
+  <link rel="stylesheet" href="css/styles.css?v=3">
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +42,10 @@
         }
       }
       // Проверяем, загружены ли логотипы из кеша
+      var logosShown = false;
       function showLogos() {
+        if (logosShown) return;
+        logosShown = true;
         var logos = document.querySelectorAll('.header__logo img, .benefits__toggle-logo img');
         logos.forEach(function(logo) {
           if (logo && !logo.classList.contains('loaded')) {
@@ -50,23 +53,29 @@
           }
         });
       }
-      var heroCarImg = new Image();
-      heroCarImg.onload = function() {
-        setTimeout(showHeroImage, 10);
-      };
-      heroCarImg.src = 'assets/hero-car.png';
-      // Если изображение уже загружено (кеш)
-      if (heroCarImg.complete) {
-        setTimeout(showHeroImage, 10);
+      // Проверяем изображение автомобиля сразу
+      var heroImg = document.querySelector('.hero__image--floating img');
+      if (heroImg && heroImg.complete && heroImg.naturalHeight !== 0) {
+        showHeroImage();
+      } else {
+        var heroCarImg = new Image();
+        heroCarImg.onload = function() {
+          showHeroImage();
+        };
+        heroCarImg.src = 'assets/hero-car.png';
+        // Если изображение уже загружено (кеш)
+        if (heroCarImg.complete) {
+          showHeroImage();
+        }
       }
-      var logoImg = new Image();
-      logoImg.onload = function() {
-        setTimeout(showLogos, 10);
-      };
-      logoImg.src = 'assets/logo.svg';
-      // Если логотип уже загружен (кеш)
-      if (logoImg.complete) {
-        setTimeout(showLogos, 10);
+      // Проверяем логотип сразу
+      var headerLogoImg = document.querySelector('.header__logo img');
+      if (headerLogoImg) {
+        if (headerLogoImg.complete && headerLogoImg.naturalHeight !== 0) {
+          showLogos();
+        } else {
+          headerLogoImg.addEventListener('load', showLogos, { once: true });
+        }
       }
       // Если документ уже загружен (кеш)
       if (document.readyState === 'complete' || document.readyState === 'interactive') {
