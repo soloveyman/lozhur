@@ -64,24 +64,41 @@ export function initFormHandler() {
     });
   }
 
+  // Установка состояния успеха на кнопке
+  function setSuccess(on) {
+    if (!btn) return;
+    const icon = btn.querySelector('.btn-icon .material-icons');
+    if (!icon) return;
+    
+    if (on) {
+      btn.classList.add('is-success');
+      icon.textContent = 'check';
+    } else {
+      btn.classList.remove('is-success');
+      icon.textContent = 'arrow_forward';
+    }
+  }
+
   // Отправка формы
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    setNote('Отправляем…', 'info');
+    setNote('', ''); // Очищаем сообщение
+    setSuccess(false); // Сбрасываем галочку
     setLoading(true);
 
     const result = await submitForm(form);
 
     if (result.success) {
-      setNote('Готово! Анкета успешно отправлена. Мы свяжемся с вами.', 'success');
+      setSuccess(true);
       form.reset();
       // Сброс состояний полей после успешной отправки
       if (boxes.fio) boxes.fio.classList.remove('is-focus', 'is-valid', 'is-error');
       if (boxes.phone) boxes.phone.classList.remove('is-focus', 'is-valid', 'is-error');
       if (boxes.exp) boxes.exp.classList.remove('is-focus', 'is-valid', 'is-error');
     } else {
-      setNote(result.error || 'Ошибка отправки. Попробуйте позже.', 'error');
+      // Не показываем общее сообщение об ошибке, только ошибки в инпутах
+      setNote('', '');
     }
 
     setLoading(false);

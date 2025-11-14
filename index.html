@@ -12,9 +12,13 @@
     /* Hide hero car image until CSS loads */
     .hero__image--floating img { opacity: 0 !important; visibility: hidden !important; }
     .hero__image--floating img.loaded { opacity: 1 !important; visibility: visible !important; }
+    /* Hide logos until CSS loads */
+    .header__logo img, .benefits__toggle-logo img { opacity: 0 !important; visibility: hidden !important; }
+    .header__logo img.loaded, .benefits__toggle-logo img.loaded { opacity: 1 !important; visibility: visible !important; }
   </style>
   <!-- Preload critical images -->
   <link rel="preload" href="assets/hero-car.png" as="image">
+  <link rel="preload" href="assets/logo.svg" as="image">
   <!-- Critical CSS - блокирующая загрузка с версионированием для сброса кеша -->
   <link rel="stylesheet" href="css/styles.css?v=2">
   <!-- Fonts -->
@@ -42,12 +46,26 @@
           }
         }
       }
+      // Проверяем, загружены ли логотипы из кеша
+      function showLogos() {
+        var logos = document.querySelectorAll('.header__logo img, .benefits__toggle-logo img');
+        logos.forEach(function(logo) {
+          if (logo) logo.classList.add('loaded');
+        });
+      }
       var heroCarImg = new Image();
       heroCarImg.onload = showHeroImage;
       heroCarImg.src = 'assets/hero-car.png';
       // Если изображение уже загружено (кеш)
       if (heroCarImg.complete) {
         setTimeout(showHeroImage, 0);
+      }
+      var logoImg = new Image();
+      logoImg.onload = showLogos;
+      logoImg.src = 'assets/logo.svg';
+      // Если логотип уже загружен (кеш)
+      if (logoImg.complete) {
+        setTimeout(showLogos, 0);
       }
       // Если документ уже загружен (кеш)
       if (document.readyState === 'complete' || document.readyState === 'interactive') {
@@ -69,7 +87,7 @@
   <div class="header__container">
     <div class="header__logo">
       <a href="#home" class="header__logo-link" aria-label="На главную">
-      <img src="assets/logo.svg" alt="ЛОЖУР — транспортная компания" />
+      <img src="assets/logo.svg" alt="ЛОЖУР — транспортная компания" onload="this.classList.add('loaded')">
       </a>
     </div>
 
@@ -184,21 +202,23 @@
         <!-- Преимущества -->
         <section id="benefits" class="benefits">
           <div class="benefits__container">
+            <h2 class="benefits__title">Преимущества</h2>
             <div class="benefits__inner">
-              <!-- Переключатель -->
-              <div class="benefits__toggle">
-                <div class="benefits__toggle-controls">
-                  <span class="benefits__toggle-label active" data-target="drivers">Для водителей</span>
-                  <div class="benefits__toggle-switch active" id="benefitsToggle"></div>
-                  <span class="benefits__toggle-label" data-target="partners">Для партнёров</span>
+              <div class="benefits__content-wrapper">
+                <!-- Переключатель -->
+                <div class="benefits__toggle">
+                  <div class="benefits__toggle-controls">
+                    <span class="benefits__toggle-label active" data-target="drivers">Для водителей</span>
+                    <div class="benefits__toggle-switch active" id="benefitsToggle"></div>
+                    <span class="benefits__toggle-label" data-target="partners">Для партнёров</span>
+                  </div>
+                  <div class="benefits__toggle-logo">
+                    <img src="assets/logo.svg" alt="ЛОЖУР" onload="this.classList.add('loaded')">
+                  </div>
                 </div>
-                <div class="benefits__toggle-logo">
-                  <img src="assets/logo.svg" alt="ЛОЖУР" />
-                </div>
-              </div>
 
-              <!-- Контейнер карточек -->
-              <div class="benefits__cards-wrapper">
+                <!-- Контейнер карточек -->
+                <div class="benefits__cards-wrapper">
               <!-- Для водителей -->
               <div class="benefits-card benefits-card--drivers active">
                 <h3 class="benefits-card__title">Предлагаем</h3>
@@ -229,41 +249,48 @@
         <!-- ====== LEAD FORM: ЛОЖУР ====== -->
       <section id="form" class="lead">
         <div class="lead__outer">
+          <h2 class="lead__title">Заполните анкету</h2>
           <form id="leadForm" class="lead__inner" method="POST" novalidate>
-            <h3 class="about-card__value">Информация</h3>
+            <div class="lead__columns">
+              <!-- Колонка 1: Информация -->
+              <div class="lead__column">
+                <h3 class="about-card__value">Информация</h3>
 
-            <!-- ФИО -->
-            <div class="fi form-field" data-field="fio">
-              <label class="form-label" for="fio">ФИО*</label>
-              <input class="form-input" id="fio" name="fio" type="text"
-                    inputmode="text" autocomplete="name" required
-                    placeholder="Иванов Иван Иванович" minlength="6">
-              <p class="form-hint">Введите полные фамилию, имя, отчество (не меньше 6 символов)</p>
-              <p class="form-error">Минимум 6 букв, без спецсимволов.</p>
-            </div>
+                <!-- ФИО -->
+                <div class="fi form-field" data-field="fio">
+                  <label class="form-label" for="fio">ФИО*</label>
+                  <input class="form-input" id="fio" name="fio" type="text"
+                        inputmode="text" autocomplete="name" required
+                        placeholder="Иванов Иван Иванович" minlength="6">
+                  <p class="form-hint">Введите полные фамилию, имя, отчество (не меньше 6 символов)</p>
+                  <p class="form-error">Минимум 6 букв, без спецсимволов.</p>
+                </div>
 
-            <!-- Телефон -->
-            <div class="phone form-field" data-field="phone">
-              <label class="form-label" for="phone">Номер телефона*</label>
-              <input class="form-input" id="phone" name="phone" type="tel"
-                    inputmode="tel" autocomplete="tel" required
-                    placeholder="+375291234567">
-              <p class="form-hint">Формат: +375XXXXXXXXX</p>
-              <p class="form-error">Укажите номер в формате +375XXXXXXXXX</p>
-            </div>
+                <!-- Телефон -->
+                <div class="phone form-field" data-field="phone">
+                  <label class="form-label" for="phone">Номер телефона*</label>
+                  <input class="form-input" id="phone" name="phone" type="tel"
+                        inputmode="tel" autocomplete="tel" required
+                        placeholder="+375291234567">
+                  <p class="form-hint">Формат: +375XXXXXXXXX</p>
+                  <p class="form-error">Укажите номер в формате +375XXXXXXXXX</p>
+                </div>
 
-            <!-- Стаж -->
-            <div class="exp form-field" data-field="exp">
-              <label class="form-label" for="exp">Стаж по кат. B*</label>
-              <input class="form-input" id="exp" name="exp" type="number" min="2" step="1"
-                    placeholder="2" required>
-              <p class="form-hint">Минимум 2 года</p>
-              <p class="form-error">Стаж должен быть ≥ 2 лет</p>
-            </div>
+                <!-- Стаж -->
+                <div class="exp form-field" data-field="exp">
+                  <label class="form-label" for="exp">Стаж по кат. B*</label>
+                  <input class="form-input" id="exp" name="exp" type="number" min="2" step="1"
+                        placeholder="2" required>
+                  <p class="form-hint">Минимум 2 года</p>
+                  <p class="form-error">Стаж должен быть ≥ 2 лет</p>
+                </div>
+              </div>
 
-            <h3 class="about-card__value">Отметьте имеющиеся документы</h3>
+              <!-- Колонка 2: Документы -->
+              <div class="lead__column">
+                <h3 class="about-card__value">Документы</h3>
 
-            <fieldset class="checks">
+                <fieldset class="checks">
               <label class="check">
                 <input type="checkbox" name="docs[]" value="med"> 
                 <span>Водительская мед. справка с правом найма</span>
@@ -293,6 +320,8 @@
                 <span>Военный билет</span>
               </label>
             </fieldset>
+              </div>
+            </div>
 
             <div class="lead__actions">
               <button type="submit" class="btn btn-primary" id="submitBtn">
