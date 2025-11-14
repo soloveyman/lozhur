@@ -6,6 +6,8 @@ import { initFormHandler } from './modules/form-handler.js';
 import { initButtonAnimation } from './modules/button-animation.js';
 import { initMobileMenu } from './modules/mobile-menu.js';
 import { initBenefitsToggle } from './modules/benefits-toggle.js';
+import { initHeroReveal } from './modules/hero-reveal.js';
+import { initScrollReveal } from './modules/scroll-reveal.js';
 
 // Инициализация после загрузки DOM
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,4 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initButtonAnimation();
   initMobileMenu();
   initBenefitsToggle();
+  initHeroReveal();
+  initScrollReveal();
 });
