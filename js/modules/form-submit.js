@@ -31,31 +31,74 @@ export async function submitForm(form) {
   // Подготовка данных
   const fd = new FormData(form);
 
-  // Обработка чекбоксов документов
+  // Обработка чекбоксов документов - получаем читаемые названия
   const allDocs = Array.from(form.querySelectorAll('input[name="docs[]"]'));
-  const slug = (s) => (s || '').toString().trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+  const docNames = {
+    'med': 'Водительская мед. справка с правом найма',
+    'upg': 'Свидетельство о повышении квалификации по кат. B (если стаж > 5 лет)',
+    'taxi-cert': 'Свидетельство об обучении водителя такси',
+    'lpg': 'Обучение для работы на автомобиле с газовым оборудованием',
+    'badge': 'Бейдж согласно стандартам работы в такси',
+    'workbook': 'Трудовая книга',
+    'mil': 'Военный билет'
+  };
+  
   const checkedLabels = [];
   
   allDocs.forEach((input) => {
-    const title = input.value || input.nextElementSibling?.textContent?.trim() || 'item';
-    if (input.checked) checkedLabels.push(title);
-    fd.append(`docs_${slug(title)}`, input.checked ? 'true' : 'false');
+    const value = input.value;
+    const readableName = docNames[value] || input.nextElementSibling?.textContent?.trim() || value;
+    if (input.checked) {
+      checkedLabels.push(readableName);
+    }
   });
-  
-  if (checkedLabels.length) {
-    fd.append('docs_list', checkedLabels.join(', '));
-    checkedLabels.forEach((t, i) => fd.append(`docs_value_${i + 1}`, t));
+
+  // Формируем тело письма для FormSubmit
+  const emailBody = [
+    'Новая заявка на трудоустройство',
+    '',
+    '═══════════════════════════════════════',
+    '',
+    `ФИО: ${fields.fio?.value || ''}`,
+    `Телефон: ${fields.phone?.value || ''}`,
+    `Стаж по кат. B: ${fields.exp?.value || ''} лет`,
+    ''
+  ];
+
+  if (checkedLabels.length > 0) {
+    emailBody.push('Документы:');
+    checkedLabels.forEach(label => {
+      emailBody.push(`  ✓ ${label}`);
+    });
+  } else {
+    emailBody.push('Документы: не указаны');
   }
 
-  // Отправка
+  emailBody.push('');
+  emailBody.push('═══════════════════════════════════════');
+
+  // Добавляем специальные поля для FormSubmit
+  fd.append('_subject', 'Новая заявка с сайта ЛОЖУР');
+  fd.append('_template', 'box');
+  fd.append('_message', emailBody.join('\n'));
+  fd.append('_replyto', fields.phone?.value || '');
+
+  // Отправка через FormSubmit
   try {
-    const res = await fetch('send.php', { method: 'POST', body: fd });
+    const res = await fetch('https://formsubmit.co/ajax/lojour.pinsk@yandex.by', {
+      method: 'POST',
+      body: fd,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
     const data = await res.json().catch(() => ({}));
 
-    if (data && data.ok) {
+    if (res.ok && (data.success === true || data.message)) {
       return { success: true };
     } else {
-      return { success: false, error: (data && data.error) || 'Ошибка отправки. Попробуйте позже.' };
+      return { success: false, error: data.message || 'Ошибка отправки. Попробуйте позже.' };
     }
   } catch (err) {
     return { success: false, error: 'Сеть недоступна. Проверьте подключение и повторите попытку.' };
