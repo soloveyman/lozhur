@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Ysabeau+Infant:wght@800&display=swap" rel="stylesheet">
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css"/>
 </head>
@@ -23,20 +25,22 @@
       </a>
     </div>
 
+    <!-- Бургер-кнопка для мобильных -->
+    <button class="burger-btn" type="button" aria-label="Открыть меню" aria-expanded="false">
+      <span class="material-icons burger-icon">menu</span>
+      <span class="material-icons burger-icon burger-icon--close">close</span>
+    </button>
+
     <nav class="header__nav">
       <div class="nav__box">
         <a class="menu-btn" href="#benefits">Преимущества</a>
         <a class="menu-btn" href="#about">О нас</a>
         <a class="menu-btn" href="#reviews">Отзывы</a>
-        <span class="nav__divider"></span>
-        <a class="btn btn-secondary" href="#contacts">
-          <span class="btn-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/>
-              <polyline points="12 5 19 12 12 19"/>
-            </svg>
-          </span>
+        <a class="menu-btn" href="#contacts">
           <span>Контакты</span>
+          <span class="menu-btn__icon">
+            <span class="material-icons">arrow_forward</span>
+          </span>
         </a>
       </div>
     </nav>
@@ -58,10 +62,7 @@
             <a href="#form" class="btn btn-primary">
               <span>Заполни анкету</span>
               <span class="btn-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"/>
-                  <polyline points="12 5 19 12 12 19"/>
-                </svg>
+                <span class="material-icons">arrow_forward</span>
               </span>
             </a>
           </div>
@@ -122,11 +123,11 @@
             <div class="benefits-card benefits-card--drivers">
               <h2 class="benefits-card__title">Для водителей</h2>
               <ul class="benefits-list">
-                <li><img src="assets/check_circle.svg" alt="" class="icon icon--green"> Официальное трудоустройство и внесение в реестр</li>
-                <li><img src="assets/check_circle.svg" alt="" class="icon icon--green"> График работы 2/2</li>
-                <li><img src="assets/check_circle.svg" alt="" class="icon icon--green"> Помощь с обучением</li>
-                <li><img src="assets/check_circle.svg" alt="" class="icon icon--green"> Стабильный заработок</li>
-                <li><img src="assets/check_circle.svg" alt="" class="icon icon--green"> Еженедельные выплаты</li>
+                <li><span class="material-icons icon icon--green">check_circle</span> Официальное трудоустройство и внесение в реестр</li>
+                <li><span class="material-icons icon icon--green">check_circle</span> График работы 2/2</li>
+                <li><span class="material-icons icon icon--green">check_circle</span> Помощь с обучением</li>
+                <li><span class="material-icons icon icon--green">check_circle</span> Стабильный заработок</li>
+                <li><span class="material-icons icon icon--green">check_circle</span> Еженедельные выплаты</li>
               </ul>
             </div>
 
@@ -134,10 +135,10 @@
             <div class="benefits-card benefits-card--partners">
               <h2 class="benefits-card__title">Для партнёров</h2>
               <ul class="benefits-list">
-                <li><img src="assets/check_circle.svg" alt="" class="icon icon--orange"> Ежемесячные выплаты</li>
-                <li><img src="assets/check_circle.svg" alt="" class="icon icon--orange"> Прозрачная отчётность</li>
-                <li><img src="assets/check_circle.svg" alt="" class="icon icon--orange"> Всю бухгалтерию берём на себя</li>
-                <li><img src="assets/check_circle.svg" alt="" class="icon icon--orange"> Полная подготовка авто и водителя к работе</li>
+                <li><span class="material-icons icon icon--orange">check_circle</span> Ежемесячные выплаты</li>
+                <li><span class="material-icons icon icon--orange">check_circle</span> Прозрачная отчётность</li>
+                <li><span class="material-icons icon icon--orange">check_circle</span> Всю бухгалтерию берём на себя</li>
+                <li><span class="material-icons icon icon--orange">check_circle</span> Полная подготовка авто и водителя к работе</li>
               </ul>
             </div>
           </div>
@@ -146,10 +147,8 @@
         <!-- ====== LEAD FORM: ЛОЖУР ====== -->
       <section id="form" class="lead">
         <div class="lead__outer">
-          <form id="leadForm" class="lead__inner" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <form id="leadForm" class="lead__inner" method="POST" novalidate>
             <h3 class="about-card__value">Информация</h3>
-            <!-- Access Key -->
-            <input type="hidden" name="access_key" value="eba58f53-114c-4405-af58-fad7c42366d8">
 
             <!-- ФИО -->
             <div class="fi form-field" data-field="fio">
@@ -214,19 +213,12 @@
             </fieldset>
 
             <div class="lead__actions">
-              <div class="lead__actions">
-                <button type="submit" class="btn btn-primary" id="submitBtn">
-                  <span>Отправить анкету</span>
-                  <span class="btn-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="5" y1="12" x2="19" y2="12"/>
-                      <polyline points="12 5 19 12 12 19"/>
-                    </svg>
-                  </span>
-                </button>
-              </div>
+              <button type="submit" class="btn btn-primary" id="submitBtn">
+                <span>Отправить анкету</span>
+                <span class="btn-icon">
+                  <span class="material-icons">arrow_forward</span>
+                </span>
+              </button>
               <p id="formNote" class="form-note" aria-live="polite"></p>
             </div>
           </form>
@@ -298,20 +290,10 @@
           <div class="accordion__header">
             <span class="accordion__q">Какие документы нужны для трудоустройства?</span>
 
-            <!-- КНОПКА-ИКОНКА: белая капсула, 2 SVG внутри -->
+            <!-- КНОПКА-ИКОНКА: Material Icons -->
             <button class="accordion__icon" type="button" aria-expanded="false" aria-label="Развернуть">
-              <!-- arrow down (закрыто) -->
-              <svg class="icon--down" viewBox="0 0 24 24" width="20" height="20"
-                  fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6,9 12,15 18,9"></polyline>
-              </svg>
-              <!-- arrow up (открыто) -->
-              <svg class="icon--up" viewBox="0 0 24 24" width="20" height="20"
-                  fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6,15 12,9 18,15"></polyline>
-              </svg>
+              <span class="material-icons icon--down">add</span>
+              <span class="material-icons icon--up">remove</span>
             </button>
           </div>
 
@@ -337,20 +319,10 @@
           <div class="accordion__header">
             <span class="accordion__q">Как нас найти?</span>
 
-            <!-- КНОПКА-ИКОНКА: белая капсула, 2 SVG внутри -->
+            <!-- КНОПКА-ИКОНКА: Material Icons -->
             <button class="accordion__icon" type="button" aria-expanded="false" aria-label="Развернуть">
-              <!-- arrow down (закрыто) -->
-              <svg class="icon--down" viewBox="0 0 24 24" width="20" height="20"
-                  fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6,9 12,15 18,9"></polyline>
-              </svg>
-              <!-- arrow up (открыто) -->
-              <svg class="icon--up" viewBox="0 0 24 24" width="20" height="20"
-                  fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6,15 12,9 18,15"></polyline>
-              </svg>
+              <span class="material-icons icon--down">add</span>
+              <span class="material-icons icon--up">remove</span>
             </button>
           </div>
 
@@ -366,20 +338,10 @@
           <div class="accordion__header">
             <span class="accordion__q">Какой минимальный стаж, для трудоустройства?</span>
 
-            <!-- КНОПКА-ИКОНКА: белая капсула, 2 SVG внутри -->
+            <!-- КНОПКА-ИКОНКА: Material Icons -->
             <button class="accordion__icon" type="button" aria-expanded="false" aria-label="Развернуть">
-              <!-- arrow down (закрыто) -->
-              <svg class="icon--down" viewBox="0 0 24 24" width="20" height="20"
-                  fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6,9 12,15 18,9"></polyline>
-              </svg>
-              <!-- arrow up (открыто) -->
-              <svg class="icon--up" viewBox="0 0 24 24" width="20" height="20"
-                  fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6,15 12,9 18,15"></polyline>
-              </svg>
+              <span class="material-icons icon--down">add</span>
+              <span class="material-icons icon--up">remove</span>
             </button>
           </div>
 
