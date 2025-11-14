@@ -10,11 +10,11 @@
     html { visibility: hidden; opacity: 0; }
     html.css-loaded { visibility: visible; opacity: 1; transition: opacity 0.2s ease-in; }
     /* Hide hero car image until CSS loads */
-    .hero__image--floating img { opacity: 0 !important; visibility: hidden !important; }
-    .hero__image--floating img.loaded { opacity: 1 !important; visibility: visible !important; }
+    .hero__image--floating img { opacity: 0 !important; }
+    .hero__image--floating img.loaded { opacity: 1 !important; }
     /* Hide logos until CSS loads */
-    .header__logo img, .benefits__toggle-logo img { opacity: 0 !important; visibility: hidden !important; }
-    .header__logo img.loaded, .benefits__toggle-logo img.loaded { opacity: 1 !important; visibility: visible !important; }
+    .header__logo img, .benefits__toggle-logo img { opacity: 0 !important; }
+    .header__logo img.loaded, .benefits__toggle-logo img.loaded { opacity: 1 !important; }
   </style>
   <!-- Preload critical images -->
   <link rel="preload" href="assets/hero-car.png" as="image">
@@ -37,35 +37,36 @@
       // Проверяем, загружено ли изображение автомобиля из кеша
       function showHeroImage() {
         var img = document.querySelector('.hero__image--floating img');
-        var container = document.querySelector('.hero__image--floating');
-        if (img) {
+        if (img && !img.classList.contains('loaded')) {
           img.classList.add('loaded');
-          if (container) {
-            container.style.opacity = '1';
-            container.style.visibility = 'visible';
-          }
         }
       }
       // Проверяем, загружены ли логотипы из кеша
       function showLogos() {
         var logos = document.querySelectorAll('.header__logo img, .benefits__toggle-logo img');
         logos.forEach(function(logo) {
-          if (logo) logo.classList.add('loaded');
+          if (logo && !logo.classList.contains('loaded')) {
+            logo.classList.add('loaded');
+          }
         });
       }
       var heroCarImg = new Image();
-      heroCarImg.onload = showHeroImage;
+      heroCarImg.onload = function() {
+        setTimeout(showHeroImage, 10);
+      };
       heroCarImg.src = 'assets/hero-car.png';
       // Если изображение уже загружено (кеш)
       if (heroCarImg.complete) {
-        setTimeout(showHeroImage, 0);
+        setTimeout(showHeroImage, 10);
       }
       var logoImg = new Image();
-      logoImg.onload = showLogos;
+      logoImg.onload = function() {
+        setTimeout(showLogos, 10);
+      };
       logoImg.src = 'assets/logo.svg';
       // Если логотип уже загружен (кеш)
       if (logoImg.complete) {
-        setTimeout(showLogos, 0);
+        setTimeout(showLogos, 10);
       }
       // Если документ уже загружен (кеш)
       if (document.readyState === 'complete' || document.readyState === 'interactive') {
@@ -122,8 +123,8 @@
           <h1 class="hero__title">
             <div class="hero__title-line">
               <span class="hero__title-word">Подключайся</span>
-              <div class="hero__image hero__image--floating" style="opacity: 0; visibility: hidden;">
-                <img src="assets/hero-car.png" alt="Жёлтое такси — работа в ЛОЖУР" onload="this.classList.add('loaded'); this.parentElement.style.opacity='1'; this.parentElement.style.visibility='visible';">
+              <div class="hero__image hero__image--floating">
+                <img src="assets/hero-car.png" alt="Жёлтое такси — работа в ЛОЖУР" onload="this.classList.add('loaded')">
               </div>
               <span class="hero__title-word">и</span>
             </div>

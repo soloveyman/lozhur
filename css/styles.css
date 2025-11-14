@@ -259,10 +259,12 @@ button, button * {
   display:block; 
   opacity: 0;
   transition: opacity 0.3s ease;
+  backface-visibility: hidden;
 }
 .header__logo img.loaded,
 .header__logo img[complete] {
   opacity: 1;
+  will-change: auto;
 }
 
 /* Навигация в header */
@@ -421,6 +423,8 @@ section[id]{ scroll-margin-top: 72px; }
   transform: rotate(5deg);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
+  opacity: 1;
+  visibility: visible;
 }
 
 .hero__image--floating img {
@@ -430,12 +434,12 @@ section[id]{ scroll-margin-top: 72px; }
   display: block;
   opacity: 0;
   transition: opacity 0.3s ease;
-  will-change: opacity;
   backface-visibility: hidden;
 }
 .hero__image--floating img.loaded,
 .hero__image--floating img[complete] {
   opacity: 1;
+  will-change: auto;
 }
 
 /* Прямоугольник для eyebrow */
@@ -589,10 +593,12 @@ section[id]{ scroll-margin-top: 72px; }
   display: block;
   opacity: 0;
   transition: opacity 0.3s ease;
+  backface-visibility: hidden;
 }
 .benefits__toggle-logo img.loaded,
 .benefits__toggle-logo img[complete] {
   opacity: 1;
+  will-change: auto;
 }
 
 .benefits__toggle-label {
