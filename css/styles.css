@@ -37,6 +37,9 @@
 
 html {
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  background: transparent;
 }
 
 body {
@@ -45,7 +48,9 @@ body {
   font-size: 16px;
   line-height: 1.5;
   color: var(--dark);
-  background: #ffffff;
+  background: transparent;
+  margin: 0;
+  padding: 0;
   position: relative;
   overflow-x: hidden;
 }
@@ -606,8 +611,6 @@ section[id]{ scroll-margin-top: 72px; }
   gap: 48px;
   align-items: stretch;
   box-shadow: rgba(255, 255, 255, 0.25) 0px 0px 0px 8px, rgba(0, 0, 0, 0.1) 12px 16px 16px 0px;
-  border-top: 1px solid var(--white);
-  border-left: 1px solid var(--white);
 }
 
 .benefits__title {
@@ -852,8 +855,6 @@ section[id]{ scroll-margin-top: 72px; }
   transition: transform 0.3s ease;
   height: 100%;
   box-sizing: border-box;
-  border-top: 1px solid var(--white);
-  border-left: 1px solid var(--white);
 }
 
 .about-card__icon {
