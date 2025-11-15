@@ -68,14 +68,16 @@ export function initFormHandler() {
   function setSuccess(on) {
     if (!btn) return;
     const icon = btn.querySelector('.btn-icon .material-icons');
-    if (!icon) return;
+    const textSpan = btn.querySelector('span:not(.btn-icon)');
     
     if (on) {
       btn.classList.add('is-success');
-      icon.textContent = 'check';
+      if (icon) icon.textContent = 'check';
+      if (textSpan) textSpan.textContent = 'Отправлено';
     } else {
       btn.classList.remove('is-success');
-      icon.textContent = 'arrow_forward';
+      if (icon) icon.textContent = 'arrow_forward';
+      if (textSpan) textSpan.textContent = 'Отправить анкету';
     }
   }
 

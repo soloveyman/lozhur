@@ -129,7 +129,7 @@ button, button * {
 }
 .btn:active .btn-icon,
 .btn.is-clicked .btn-icon {
-  transform: translateX(4px);
+  transform: none;
 }
 
 /* PRIMARY в стиле с картинки */
@@ -911,7 +911,7 @@ section[id]{ scroll-margin-top: 72px; }
   left: 0;
   right: 0;
   height: 200px;
-  background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.5) 50%, var(--white) 100%);
+  background: transparent;
   z-index: 0;
   pointer-events: none;
 }
@@ -1041,7 +1041,7 @@ section[id]{ scroll-margin-top: 72px; }
 
 /* OUTER контейнер: padding 80 120, прозрачный фон */
 .faq__outer{
-  background: var(--white);
+  background: transparent;
   padding: 120px 120px 80px 120px; 
   position: relative;
   z-index: 1;
@@ -1164,7 +1164,7 @@ section[id]{ scroll-margin-top: 72px; }
 
 /* OUTER / INNER по макету */
 .contacts__outer{
-  background: var(--white);
+  background: transparent;
   padding: 120px 120px 80px 120px; 
   position: relative;
   z-index: 1;
@@ -1275,10 +1275,7 @@ section[id]{ scroll-margin-top: 72px; }
   flex-direction: column;
   align-items: flex-start;
   background: #1a1a1a;
-  background-image: url("https://framerusercontent.com/images/6mcf62RlDfRfU61Yg5vb2pefpi4.png?width=256&height=256");
-  background-repeat: repeat;
-  background-position: left top;
-  background-size: 150px;
+  background-image: linear-gradient(to right, #434343 0%, black 100%);
   border-radius: 24px;
   padding: 48px;
   gap: 24px;
@@ -1289,8 +1286,7 @@ section[id]{ scroll-margin-top: 72px; }
   content: '';
   position: absolute;
   inset: 0;
-  background: #1a1a1a;
-  opacity: 0.85;
+  background: transparent;
   border-radius: inherit;
   z-index: 0;
 }
@@ -1502,17 +1498,31 @@ section[id]{ scroll-margin-top: 72px; }
   position: relative;
 }
 
-/* Спиннер справа от текста (поверх иконки) */
-.btn.is-loading::after {
+/* Спиннер на месте иконки */
+.btn.is-loading .btn-icon {
+  position: relative;
+}
+
+/* Скрываем содержимое иконки */
+.btn.is-loading .btn-icon .material-icons {
+  opacity: 0;
+}
+
+/* Спиннер на месте иконки */
+.btn.is-loading .btn-icon::after {
   content: "";
   position: absolute;
-  right: 12px;
+  top: 50%;
+  left: 50%;
+  margin-top: -8px;
+  margin-left: -8px;
   width: 16px;
   height: 16px;
-  border: 2px solid #fff;               /* белый, т.к. у тебя primary — оранжевый */
+  border: 2px solid #fff;
   border-top-color: transparent;
   border-radius: 50%;
   animation: lodash-spin 1s linear infinite;
+  z-index: 1;
 }
 
 /* Если фон кнопки не оранжевый — поменяй цвет спиннера как нужно */
@@ -2041,4 +2051,5 @@ section[id]{ scroll-margin-top: 72px; }
     width: 100%;
     box-sizing: border-box;
   }
+}
 }
