@@ -105,6 +105,7 @@ button, button * {
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
   font-family: "Mulish", sans-serif;
   font-weight: 400;
@@ -151,6 +152,10 @@ button, button * {
   transition: background 0.3s ease;
   height: 48px;
   min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 .btn-primary:hover {
   background: linear-gradient(135deg, var(--secondary) 0%, #a0240a 100%);
@@ -1434,7 +1439,7 @@ section[id]{ scroll-margin-top: 72px; }
   justify-content: center;
 }
 .lead__actions .btn{
-  display:inline-flex; align-items:center; gap:4px;
+  display:inline-flex; align-items:center; justify-content: center; gap:4px;
   padding: 8px 24px;
   border-radius: 9999px !important;
   border: none; cursor: pointer;
@@ -1756,6 +1761,9 @@ section[id]{ scroll-margin-top: 72px; }
   .hero__cta .btn-primary {
     width: auto;
     justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8px 24px;
   }
   
   /* Benefits mobile */
