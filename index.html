@@ -80,14 +80,41 @@
           headerLogoImg.addEventListener('load', showLogos, { once: true });
         }
       }
-      // Если документ уже загружен (кеш)
+      // Проверяем изображения водителей
+      function checkDriverImages() {
+        var driverImgs = document.querySelectorAll('.testimonial-card__image img');
+        driverImgs.forEach(function(img) {
+          if (img.complete && img.naturalHeight !== 0) {
+            // Изображение загружено
+            img.style.opacity = '1';
+          } else {
+            // Проверяем, загружается ли изображение
+            img.addEventListener('load', function() {
+              this.style.opacity = '1';
+            }, { once: true });
+            img.addEventListener('error', function() {
+              console.error('Failed to load image:', this.src);
+              // Не скрываем, оставляем видимым контейнер с фоном
+            }, { once: true });
+          }
+        });
+      }
+      // Проверяем изображения водителей после загрузки DOM
       if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        setTimeout(showContent, 0);
+        setTimeout(function() {
+          checkDriverImages();
+          showContent();
+        }, 0);
       } else {
-        // Ждем загрузки всех ресурсов
-        window.addEventListener('load', showContent);
+        window.addEventListener('load', function() {
+          checkDriverImages();
+          showContent();
+        });
         // Fallback на случай долгой загрузки
-        setTimeout(showContent, 200);
+        setTimeout(function() {
+          checkDriverImages();
+          showContent();
+        }, 200);
       }
     })();
   </script>
@@ -366,7 +393,7 @@
               </p>
               <div class="testimonial-card__author">
                 <div class="testimonial-card__image">
-                  <img src="assets/driver1.jpg" alt="Алексей" loading="eager" onerror="this.style.display='none'">
+                  <img src="assets/driver1.jpg" alt="Алексей" loading="eager">
                 </div>
                 <div class="testimonial-card__info">
                   <h3 class="testimonial-card__title">Алексей</h3>
@@ -383,7 +410,7 @@
               </p>
               <div class="testimonial-card__author">
                 <div class="testimonial-card__image">
-                  <img src="assets/driver2.jpg" alt="Сергей" loading="eager" onerror="this.style.display='none'">
+                  <img src="assets/driver2.jpg" alt="Сергей" loading="eager">
                 </div>
                 <div class="testimonial-card__info">
                   <h3 class="testimonial-card__title">Сергей</h3>
@@ -400,7 +427,7 @@
               </p>
               <div class="testimonial-card__author">
                 <div class="testimonial-card__image">
-                  <img src="assets/driver3.jpg" alt="Иван" loading="eager" onerror="this.style.display='none'">
+                  <img src="assets/driver3.jpg" alt="Иван" loading="eager">
                 </div>
                 <div class="testimonial-card__info">
                   <h3 class="testimonial-card__title">Иван</h3>
