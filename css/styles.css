@@ -1751,10 +1751,10 @@ section[id]{ scroll-margin-top: 72px; }
     font-size: 16px;
   }
   .hero__cta {
-    width: 100%;
+    width: auto;
   }
   .hero__cta .btn-primary {
-    width: 100%;
+    width: auto;
     justify-content: center;
   }
   
